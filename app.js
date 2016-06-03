@@ -57,4 +57,19 @@ app.use(function(err, req, res, next) {
 });
 
 
+//
+function getOutfit(OutfitTag) {
+  var response = Q.defer();
+  var promises = [];
+  promises.push(Outfit.fetchTrackingOutfit(OutfitTag));
+  Q.allSettled(promises).then(function (results) {
+    console.log("Outfit: " + JSON.stringify(results[0].value));
+    trackedOutfit = results[0].promise;
+    return response.promise;
+  });
+  PS2WS.createStream(trackedOutfit);
+}
+
+getOutfit("FCLM");
+
 module.exports = app;
