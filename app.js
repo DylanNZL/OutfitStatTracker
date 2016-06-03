@@ -1,12 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
+  // Required Files
+var Outfit = require('./Outfit'),
+    PS2WS = require('./planetsideWebSockets'),
+    api_key = require('./api_key'),
+    routes = require('./routes/index'),
+    users = require('./routes/users');
+  // Required Modules
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    Q = require('q');
 
 var app = express();
 
@@ -64,12 +69,22 @@ function getOutfit(OutfitTag) {
   promises.push(Outfit.fetchTrackingOutfit(OutfitTag));
   Q.allSettled(promises).then(function (results) {
     console.log("Outfit: " + JSON.stringify(results[0].value));
-    trackedOutfit = results[0].promise;
+    //var trackedOutfit = results[0].promise;
     return response.promise;
   });
-  PS2WS.createStream(trackedOutfit);
+  //PS2WS.createStream(trackedOutfit);
 }
 
+function getOutfitFromID(CharacterID) {
+  var response = Q.defer();
+  var promises = [];
+  promises.push(Outfit.fetchOutfitFromCharacterID(CharacterID));
+  Q.allSettled(promises).then(function (results) {
+    console.log("Player: " + JSON.stringify(results[0].value));
+    return response.promise;
+  })
+}
+getOutfitFromID("5428180936948328209");
 getOutfit("FCLM");
 
 module.exports = app;
