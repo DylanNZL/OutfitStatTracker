@@ -1,0 +1,9 @@
+# idea
+.idea
+
+# NPM Modules
+node_modules
+*.log
+
+# Config Files
+api_key.js
