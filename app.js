@@ -12,6 +12,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     Q = require('q');
+  // Global Variables
+  var trackedOutfit;
 
 var app = express();
 
@@ -69,10 +71,10 @@ function getOutfit(OutfitTag) {
   promises.push(Outfit.fetchTrackingOutfit(OutfitTag));
   Q.allSettled(promises).then(function (results) {
     console.log("Outfit: " + JSON.stringify(results[0].value));
-    //var trackedOutfit = results[0].promise;
+    trackedOutfit = results[0].value;
+    PS2WS.createStream(trackedOutfit);
     return response.promise;
   });
-  //PS2WS.createStream(trackedOutfit);
 }
 
 function getOutfitFromID(CharacterID) {
@@ -84,6 +86,7 @@ function getOutfitFromID(CharacterID) {
     return response.promise;
   })
 }
+
 getOutfitFromID("5428180936948328209");
 getOutfit("FCLM");
 
