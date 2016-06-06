@@ -1,9 +1,10 @@
   // Required Files
-var Outfit = require('./Outfit'),
-    PS2WS = require('./planetsideWebSockets'),
+var Outfit = require('./outfit'),
+    ps2ws = require('./ps2ws'),
     api_key = require('./api_key'),
     routes = require('./routes/index'),
-    users = require('./routes/users');
+    users = require('./routes/users'),
+    items = require('./items.js');
   // Required Modules
 var express = require('express'),
     path = require('path'),
@@ -72,7 +73,7 @@ function getOutfit(OutfitTag) {
   Q.allSettled(promises).then(function (results) {
     console.log("Outfit: " + JSON.stringify(results[0].value));
     trackedOutfit = results[0].value;
-    PS2WS.createStream(trackedOutfit);
+    ps2ws.createStream(trackedOutfit);
     return response.promise;
   });
 }
@@ -86,7 +87,8 @@ function getOutfitFromID(CharacterID) {
     return response.promise;
   })
 }
-
+  
+items.initialise();  
 getOutfitFromID("5428180936948328209");
 getOutfit("FCLM");
 
