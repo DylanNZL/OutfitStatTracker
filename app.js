@@ -1,18 +1,18 @@
   // Required Files
-var Outfit = require('./outfit'),
-    ps2ws = require('./ps2ws'),
-    api_key = require('./api_key'),
-    routes = require('./routes/index'),
-    users = require('./routes/users'),
-    items = require('./items.js');
+var Outfit        = require('./outfit'),
+    ps2ws         = require('./ps2ws'),
+    api_key       = require('./api_key'),
+    routes        = require('./routes/index'),
+    users         = require('./routes/users'),
+    items         = require('./items.js');
   // Required Modules
-var express = require('express'),
-    path = require('path'),
-    favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    Q = require('q');
+var express       = require('express'),
+    path          = require('path'),
+    favicon       = require('serve-favicon'),
+    logger        = require('morgan'),
+    cookieParser  = require('cookie-parser'),
+    bodyParser    = require('body-parser'),
+    Q             = require('q');
   // Global Variables
   var trackedOutfit;
 

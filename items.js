@@ -1,11 +1,13 @@
 /**
  * Created by Mono on 04-Apr-16.
  */
-var api_key = require('./api_key.js');
-var prequest = require('prequest');
-var Q = require('q');
-
-var items = {};
+  // Required Files
+var api_key   = require('./api_key.js');
+  // Required Modules
+var prequest  = require('prequest'),
+    Q         = require('q');
+  // Global Variables
+var items     = {};
 
 var mItemTemplate = JSON.stringify({
   _id :  0,
