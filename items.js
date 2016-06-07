@@ -55,5 +55,13 @@ function lookupItem(item_id) {
   return JSON.parse(mItemTemplate);
 }
 
+/*
+  // Test items inside items.js
+initialise().then(function (result) {
+  console.log(lookupItem(1)); // should return mag cutter
+  console.log(lookupItem(2)); // should return mag shot
+});
+*/
+
 exports.initialise = initialise;
 exports.lookupItem = lookupItem;
