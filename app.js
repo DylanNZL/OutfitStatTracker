@@ -4,7 +4,8 @@ var Outfit        = require('./outfit'),
     api_key       = require('./api_key'),
     routes        = require('./routes/index'),
     users         = require('./routes/users'),
-    items         = require('./items.js');
+    items         = require('./items.js'),
+    bases         = require('./bases.js');
   // Required Modules
 var express       = require('express'),
     path          = require('path'),
@@ -14,7 +15,7 @@ var express       = require('express'),
     bodyParser    = require('body-parser'),
     Q             = require('q');
   // Global Variables
-  var trackedOutfit;
+var trackedOutfit;
 
 var app = express();
 
@@ -88,7 +89,22 @@ function getOutfitFromID(CharacterID) {
   })
 }
   
-items.initialise();  
+items.initialise().then(function (result) {
+  if (result) {
+    console.log("Items Initialised");
+  } else {
+    console.error("Items did not initalise");
+  }
+});
+
+bases.initialise().then(function (result) {
+  if (result) {
+    console.log("Bases Initialised");
+  } else {
+    console.error("Bases did not initialise");
+  }
+});
+  
 getOutfitFromID("5428180936948328209");
 getOutfit("FCLM");
 
