@@ -3,19 +3,18 @@
  */
     // Required files in this project
 var api_key   = require('./api_key.js'),
-    items     = require('./items.js');
+    items     = require('./items.js'),
+    bases     = require('./bases.js');
     // Require Node Modules
 var WebSocket = require('ws'),
     fs        = require('fs'),
     io        = require('socket.io');
     // Global Variables
-    var trackedOutfit;
-
-var memberTemplate = JSON.stringify({
-    name : ''
-});
+var trackedOutfit;
 
 function alterObject(outfit) {
+    // changes the object sent to ps2ws to one that has members named by their character IDs
+    // makes it easier to check if the kill/death notifications are kills or deaths
     var outfit_obj = {
         alias : outfit.alias,
         outfit_id : outfit.outfit_id,
@@ -35,6 +34,7 @@ function alterObject(outfit) {
 }
 
 function createStream(outfit) {
+    // Opens up a WebSocket connection to the Planetside 2 streaming API
     trackedOutfit = alterObject(outfit);
     var ws = new WebSocket('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:' + api_key.KEY);
     ws.on('open', function open() {
@@ -53,6 +53,7 @@ function createStream(outfit) {
 }
 
 function dealWithData(raw) {
+    // decides if data is Player (kills/deaths), Facility or heartbeats (do nothing)
     raw = raw.replace(': :', ':');
     var data = JSON.parse(raw).payload;
     if (data.event_name == "Death") {
@@ -63,6 +64,7 @@ function dealWithData(raw) {
 }
 
 function itsPlayerData(data) {
+    // determines whether the data is for a kill by the tracked outfit or a death.
     if (trackedOutfit.hasOwnProperty(data.attacker_character_id)) {
         trackedOutfitGotAKill(data);
     }

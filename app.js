@@ -68,6 +68,8 @@ app.use(function(err, req, res) {
 
 //
 function getOutfit(OutfitTag) {
+  // Calls a function in outfit.js to find the character data for the tracked outfit. 
+  // Sends the data to ps2ws.js to track them on the streaming API
   var response = Q.defer();
   var promises = [];
   promises.push(Outfit.fetchTrackingOutfit(OutfitTag));
@@ -80,6 +82,7 @@ function getOutfit(OutfitTag) {
 }
 
 function getOutfitFromID(CharacterID) {
+  // calls a function in outfit.js to find a new character ids outfit/name
   var response = Q.defer();
   var promises = [];
   promises.push(Outfit.fetchOutfitFromCharacterID(CharacterID));
@@ -88,7 +91,7 @@ function getOutfitFromID(CharacterID) {
     return response.promise;
   })
 }
-  
+  // Initialise the Item Lookup for when it is needed later (not a speedy process)  
 items.initialise().then(function (result) {
   if (result) {
     console.log("Items Initialised");
@@ -96,7 +99,7 @@ items.initialise().then(function (result) {
     console.error("Items did not initalise");
   }
 });
-
+  // Initialise the Base Lookup for when it is needed later (not a speedy process)
 bases.initialise().then(function (result) {
   if (result) {
     console.log("Bases Initialised");

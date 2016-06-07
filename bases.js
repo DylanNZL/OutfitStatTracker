@@ -8,7 +8,6 @@ var prequest    = require('prequest'),
     Q           = require('q');
     // Global Variables
 var bases = {};
-
 var mBaseTemplate = JSON.stringify({
     facility_id : 0,
     zone_id : 0,
@@ -18,6 +17,7 @@ var mBaseTemplate = JSON.stringify({
 });
 
 function initialise() {
+    //Sends a request to the PS2 API and then populates a "table" for looking up bases based on IDs (sent by the streaming API)
     var response = Q.defer();
     var url = 'https://census.daybreakgames.com/s:' + api_key.KEY + '/get/ps2:v2/zone/?c:join=map_region%5Elist:1%5Einject_at:regions%5Ec:tree=start:regions%5Efield:facility_type%5Elist:1&c:lang=en&c:limit=10&c:show=zone_id,name,regions,facility_id,facility_name,facility_type_id,facility_type';
     prequest(url).then(function (body) {
@@ -58,6 +58,7 @@ function initialise() {
 }
 
 function lookupBase(facility_id) {
+    // finds a base based on the ID, returns the base object if it exists, otherwise returns the template.
     if (bases.hasOwnProperty(facility_id)) {
         return bases[facility_id];
     }

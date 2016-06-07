@@ -8,7 +8,6 @@ var prequest  = require('prequest'),
     Q         = require('q');
   // Global Variables
 var items     = {};
-
 var mItemTemplate = JSON.stringify({
   _id :  0,
   category_id: 0,
@@ -18,6 +17,7 @@ var mItemTemplate = JSON.stringify({
 });
 
 function initialise() {
+  // Sends a request to the PS2 API and then populates a "table" for looking up items based on IDs (sent by the streaming API)
   var response = Q.defer();
   var url = 'https://census.daybreakgames.com/s:' + api_key.KEY + '/get/ps2/item?item_type_id=26&c:limit=5000&c:hide=,skill_set_id,is_vehicle_weapon,item_type_id,faction_id,max_stack_size,image_set_id,image_path,is_default_attachment&c:lang=en';
   prequest(url).then(function (body) {
@@ -49,6 +49,7 @@ function initialise() {
 }
 
 function lookupItem(item_id) {
+  // finds an item based on the ID, returns the item object if it exists, otherwise returns the template.
   if (items.hasOwnProperty('item_' + item_id)) {
     return items['item_' + item_id];
   }
