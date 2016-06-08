@@ -112,3 +112,4 @@ getOutfitFromID("5428180936948328209");
 getOutfit("FCLM");
 
 module.exports = app;
+exports.getOutfitFromID = getOutfitFromID;
