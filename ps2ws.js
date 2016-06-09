@@ -3,8 +3,10 @@
  */
     // Required files in this project
 var api_key   = require('./api_key.js'),
+    app       = require('./app.js');
     items     = require('./items.js'),
-    bases     = require('./bases.js');
+    bases     = require('./bases.js'),
+    outfits   = require('./outfit.js');
     // Require Node Modules
 var WebSocket = require('ws'),
     fs        = require('fs'),
@@ -48,7 +50,9 @@ function createStream(outfit) {
     });
     ws.on('message', function (data) {
         //do stuff
-        dealWithData(data);
+        if (data.indexOf("payload") == 2) {
+            dealWithData(data);
+        }
     });
 }
 
@@ -71,6 +75,10 @@ function itsPlayerData(data) {
     if (trackedOutfit.hasOwnProperty(data.character_id)) {
         trackedOutfitGotADeath(data);
     }
+    console.error("Kill/Death:");
+    console.log(app.getOutfitFromID(data.attacker_character_id));
+    console.log(items.lookupItem(data.attacker_weapon_id));
+    console.log(app.getOutfitFromID(data.character_id));
 }
 
 function trackedOutfitGotAKill(data) {
@@ -97,11 +105,16 @@ function itsFacilityData(data) {
             addBaseCaptureToDB(data);
         }
     }
+    console.error("Base capture:");
+    console.log(data);
+    console.log(bases.loookupBase(data.facility_id));
 }
 
 function addBaseCaptureToDB(data) {
     // Get base ID
-    // To Store: TimeStamp | Factility ID | 
+    // To Store: TimeStamp | Factility ID |
+    console.log(bases.loookupBase(data.facility_id));
+    console.log(data.facility_id);
 }
 
 exports.createStream = createStream;
