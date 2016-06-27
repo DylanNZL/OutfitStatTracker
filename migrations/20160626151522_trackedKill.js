@@ -9,9 +9,6 @@ exports.up = function(knex, Promise) {
             table.integer('loadout');
             table.string('loserChar');
             table.integer('loserLoadout');
-            table.string('loserOutfitID');
-            table.string('loserOutfitTag');
-            table.string('loserOutfitName');
             table.boolean('isHeadshot');
         })
     ])
