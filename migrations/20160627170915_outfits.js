@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
             table.integer('deaths');
             table.integer('faction');
             table.integer('members');
-            table.timestamp('created');
-            table.timestamp('updated');
+            table.timestamp('created').defaultTo(knex.fn.now());
+            table.timestamp('updated').defaultTo(knex.fn.now());
         })
     ])
 };
