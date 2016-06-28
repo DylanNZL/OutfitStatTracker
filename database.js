@@ -269,16 +269,11 @@ function updateCapturesOfABase(mID) {
 // Checks Base db to see if the base is there.
 function doesBaseExist(mID, callback) {
     bookshelf.knex('bases').where('base_id', mID).select('base_id').then(function (data) {
-        if ((data) && (data.length > 0)) {
-            console.log(data);
-            callback(true);
-        } else {
-            console.error(data);
-            callback(false);
-        }
+        console.log(data);
+        callback(data);
     }).catch(function (err) {
         console.log(err);
-        callback(false);
+        callback(data);
     })
 }
 
