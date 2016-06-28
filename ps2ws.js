@@ -70,10 +70,13 @@ function dealWithData(raw) {
 
 function itsPlayerData(data) {
     // determines whether the data is for a kill by the tracked outfit or a death.
-    if (trackedOutfit.hasOwnProperty(data.attacker_character_id)) {
+    if ((trackedOutfit.hasOwnProperty(data.attacker_character_id)) && (trackedOutfit.hasOwnProperty(data.character_id))) {
+        trackedOutfitTeamKilled(data);
+    }
+    else if (trackedOutfit.hasOwnProperty(data.attacker_character_id)) {
         trackedOutfitGotAKill(data);
     }
-    if (trackedOutfit.hasOwnProperty(data.character_id)) {
+    else if (trackedOutfit.hasOwnProperty(data.character_id)) {
         trackedOutfitGotADeath(data);
     }
     console.error("Kill/Death:");
@@ -82,49 +85,64 @@ function itsPlayerData(data) {
     console.log(app.getOutfitFromID(data.character_id));
 }
 
+function trackedOutfitTeamKilled(data) {
+    trackedOutfitGotAKill(data, items.lookupItem(data.attacker_weapon_id));
+    trackedOutfitGotADeath(data, items.lookupItem(data.attacker_weapon_id));
+
+}
+
 function trackedOutfitGotAKill(data) {
-    // Store in to Outfit Kills db
-    // To Store: Timestamp | Killer ID | Killer Weapon | Killer Loadout ID | Loser ID | Loser loadout | Is Headshot |
-    //
-    var weapon = items.lookupItem(data.attacker_weapon_id);
-    storeTrackedKill(data, weapon);
+    storeTrackedKill(data, items.lookupItem(data.attacker_weapon_id));
+    database.doesCharacterExist(data.character_id, function (result) {
+        if ((data) && (data.length > 0)) {
+            database.updateDeathsOfACharacter(data.character_id);
+            database.updateOutfitDeaths(result.outfit_id);
+        } else {
+            outfit.fetchOutfitFromCharacterID(data.character_id).then(function (res) {
+                var obj = res[0].value;
+                database.addCharacterDeath(data.character_id, obj.name, obj.rank, obj.faction, obj.outfitID);
+                database.doesOutfitExist(obj.outfitID, function (r) {
+                    if ((r) && (r.length > 0)) {
+                        database.updateOutfitDeaths(obj.outfitID);
+                    } else {
+                        database.addOutfitWithDeath(obj.outfitID, obj.name, obj.outfitAlias, obj.faction, obj.members);
+                    }
+                });
+            });
+        }
+    });
 }
 
 function storeTrackedKill(data, weapon) {
-    // check if the outfit of the loser is in the cache
-
     // Store kill in tracked Kill table
-    database.addTrackedKill(data.timestamp, data.attacker_character_id, weapon, data.attacker_loadout_id, data_character_id, data_chaacter_loadout_id, data.is_headshot);
-    if (database.doesCharacterExist(data.character_id)) {
-        
-    } else {
-
-    }
+    database.addTrackedKill(data.timestamp, data.attacker_character_id, weapon, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
 }
 
 function trackedOutfitGotADeath(data) {
-    // Store in to Outfit Deaths db
-    // To Store: Timestamp | Killer ID | Killer Weapon | Killer Loadout ID | Loser ID | Loser Weapon | Is Headshot |
-    //
-    var weapon = items.lookupItem(data.attacker_weapon_id);
+    storeTrackedDeath(data, items.lookupItem(data.attacker_weapon_id));
+    database.doesCharacterExist(data.attacker_character_id, function (result) {
+        if ((result) && (reuslt.length > 0)) {
+            database.updateKillsOfACharacter(data.attacker_character_id);
+            database.updateOutfitDeaths(result.outfit_id);
+        } else {
+            outfit.fetchOutfitFromCharacterID(data.attacker_character_id).then(function (res) {
+                var obj = res[0].value;
+                database.addCharacterKill(data.attacker_character_id, obj.name, obj.rank, obj.faction, obj.outfitID);
+                database.doesOutfitExist(obj.outfitID, function (r) {
+                    if ((r) && (r.length > 0)) {
+                        database.updateOutfitDeaths(obj.outfitID);
+                    } else {
+                        database.addOutfitWithDeath(obj.outfitID, obj.name, obj.outfitAlias, obj.faction, obj.members);
+                    }
+                });
+            });
+        }
+    });
 }
 
 function storeTrackedDeath(data) {
-    //check if the outfit of the killer is in the cache
-    if (!charInCache(data.attacker_character_id)) {
-        findOutfit(data.attacker_character_id);
-    }
-    //store death in death table
-    var obj = {
-        time : data.timestamp,
-        killer : data.attacker_character_id,
-        weapon : weapon,
-        loadout : data.attacker_loadout_id,
-        loser : data.character_id,
-        loserOutfit : '0',
-        loserLoadout : data.character_loadout_id,
-        isHeadshot : data.is_headshot
-    };
+    // Store the death in the tracked death db
+    database.addTrackedKill(data.timestamp, data.attacker_character_id, weapon, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
 }
 
 function itsFacilityData(data) {

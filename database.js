@@ -36,8 +36,47 @@ function addTrackedDeath(mTime, mKiller, mWeapon, mLoadout, mLoser, mLoserLoadou
         loserLoadout : mLoserLoadout,
         IsHeadshot : mIsHeadshot
     };
-    console.log(obj);
     bookshelf.knex('trackedDeath').insert(obj).then(function (data) {
+
+    }).catch(function (err) {
+        console.error(err);
+    });
+}
+
+// Insert a character in to the character db with a death
+function addCharacterDeath(mID, mName, mRank, mFaction, mOutfit) {
+    var obj = {
+        character_id : mID,
+        name : mName,
+        rank : mRank,
+        kills : 0,
+        deaths : 1,
+        faction : mFaction,
+        outfit_id : mOutfit,
+        created : Date.now(),
+        updated : Date.now()
+    };
+    bookshelf.knex('characters').insert(obj).then(function (data) {
+        
+    }).catch(function (err) {
+        console.error(err);
+    });
+}
+
+// Insert a character in to the character db with a kill
+function addCharacterKill(mID, mName, mRank, mFaction, mOutfit) {
+    var obj = {
+        character_id : mID,
+        name : mName,
+        rank : mRank,
+        kills : 1,
+        deaths : 0,
+        faction : mFaction,
+        outfit_id : mOutfit,
+        created : Date.now(),
+        updated : Date.now()
+    };
+    bookshelf.knex('characters').insert(obj).then(function (data) {
 
     }).catch(function (err) {
         console.error(err);
@@ -77,27 +116,47 @@ function updateKillsOfACharacter(char_id) {
 
 // Finds out if a character exists in the character database
 function doesCharacterExist (char_id, callback) {
-    bookshelf.knex('characters').where('character_id',char_id).select('character_id').then(function (data) {
+    bookshelf.knex('characters').where('character_id',char_id).select('outfit_id').then(function (data) {
         if ((data) && (data.length > 0)) {
             console.log(data);
-            callback(true);
+            callback(data);
         } else {
             console.error(data);
-            callback(false);
+            callback(data);
         }
     });
 }
 
 /* ========================================== Outfit Queries ========================================== */
 
-// Adds an outfit to the database
-function addOutfit(mID, mName, mAlias, mFaction, mMembers) {
+// Adds an outfit to the database with one kill
+function addOutfitWithKill(mID, mName, mAlias, mFaction, mMembers) {
+    var obj = {
+        outfit_id : mID,
+        name : mName,
+        alias : mAlias,
+        kills : 1,
+        deaths : 0,
+        faction : mFaction,
+        members : mMembers,
+        created : Date.now(),
+        updated : Date.now()
+    };
+    bookshelf.knex('outfits').insert(obj).then(function (data) {
+
+    }).catch(function (err) {
+        console.error(err)
+    })
+}
+
+// Adds an outfit to the database with one death
+function addOutfitWithDeath(mID, mName, mAlias, mFaction, mMembers) {
     var obj = {
         outfit_id : mID,
         name : mName,
         alias : mAlias,
         kills : 0,
-        deaths : 0,
+        deaths : 1,
         faction : mFaction,
         members : mMembers,
         created : Date.now(),
@@ -225,6 +284,8 @@ function doesBaseExist(mID, callback) {
 
 /* ========================================== Function Tests ========================================== */
 
+//  Character Function Tests
+//  addCharacter('1234', "test2", "1", "1", "123");
 //  Outfit Function Tests
 //  addOutfit('123456', 'test Outfit', 'test', '1', '69');
 //  updateOutfitKills(123456);
@@ -232,15 +293,22 @@ function doesBaseExist(mID, callback) {
 //  doesOutfitExist(123456, function (result) {
 //      console.log("we made it");
 //  });
+//  Base Function Tests
+
+
+/* ============================================= Exports ============================================= */
 
 // Character functions
 exports.addTrackedKill              = addTrackedKill;
 exports.addTrackedDeath             = addTrackedDeath;
+exports.addCharacterKill            = addCharacterKill;
+exports.addCharacterDeath           = addCharacterDeath;
 exports.updateDeathsOfACharacter    = updateDeathsOfACharacter;
 exports.updateKillsOfACharacter     = updateKillsOfACharacter;
 exports.doesCharacterExist          = doesCharacterExist;
 // Outfit Functions
-exports.addOutfit                   = addOutfit;
+exports.addOutfitWithKill           = addOutfitWithKill;
+exports.addOutfitWithDeath          = addOutfitWithDeath;
 exports.updateOutfitKills           = updateOutfitKills;
 exports.updateOutfitDeaths          = updateOutfitDeaths;
 exports.doesOutfitExist             = doesOutfitExist;
