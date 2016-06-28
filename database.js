@@ -4,7 +4,6 @@
 // Required Files
 var bookshelf     = require('./bookshelf.js');
 // Required Modules
-//var knex          = require('knex');
 
 /* ======================================== Character Queries ======================================== */
 
@@ -77,14 +76,14 @@ function updateKillsOfACharacter(char_id) {
 }
 
 // Finds out if a character exists in the character database
-function doesCharacterExist (char_id) {
+function doesCharacterExist (char_id, callback) {
     bookshelf.knex('characters').where('character_id',char_id).select('character_id').then(function (data) {
         if ((data) && (data.length > 0)) {
             console.log(data);
-            return true;
+            callback(true);
         } else {
             console.error(data);
-            return false;
+            callback(false);
         }
     });
 }
@@ -209,18 +208,18 @@ function updateCapturesOfABase(mID) {
 }
 
 // Checks Base db to see if the base is there.
-function doesBaseExist(mID) {
+function doesBaseExist(mID, callback) {
     bookshelf.knex('bases').where('base_id', mID).select('base_id').then(function (data) {
         if ((data) && (data.length > 0)) {
             console.log(data);
-            return true;
+            callback(true);
         } else {
             console.error(data);
-            return false;
+            callback(false);
         }
     }).catch(function (err) {
         console.log(err);
-        return false;
+        callback(false);
     })
 }
 
