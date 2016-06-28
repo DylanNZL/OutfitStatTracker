@@ -85,7 +85,8 @@ function getOutfit(OutfitTag) {
 function getOutfitFromID(CharacterID) {
   // calls a function in outfit.js to find a new character ids outfit/name
   Outfit.fetchOutfitFromCharacterID(CharacterID).then(function (result) {
-    return result[0].value;
+      console.log(result[0].value);
+        return result[0].value;
   });
 
 }
