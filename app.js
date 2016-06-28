@@ -5,6 +5,7 @@ var Outfit        = require('./outfit'),
     routes        = require('./routes/index'),
     users         = require('./routes/users'),
     items         = require('./items.js'),
+    database      = require('./database.js'),
     bases         = require('./bases.js');
   // Required Modules
 var express       = require('express'),
@@ -76,27 +77,24 @@ function getOutfit(OutfitTag) {
   Q.allSettled(promises).then(function (results) {
     console.log("Outfit: " + JSON.stringify(results[0].value));
     trackedOutfit = results[0].value;
-    ps2ws.createStream(trackedOutfit);
+    //ps2ws.createStream(trackedOutfit);
     return response.promise;
   });
 }
 
 function getOutfitFromID(CharacterID) {
   // calls a function in outfit.js to find a new character ids outfit/name
-  var response = Q.defer();
-  var promises = [];
-  promises.push(Outfit.fetchOutfitFromCharacterID(CharacterID));
-  Q.allSettled(promises).then(function (results) {
-    console.log("Player: " + JSON.stringify(results[0].value));
-    return response.promise;
-  })
+  Outfit.fetchOutfitFromCharacterID(CharacterID).then(function (result) {
+    return result[0].value;
+  });
+
 }
   // Initialise the Item Lookup for when it is needed later (not a speedy process)  
 items.initialise().then(function (result) {
   if (result) {
     console.log("Items Initialised");
   } else {
-    console.error("Items did not initalise");
+    console.error("Items did not initialise");
   }
 });
   // Initialise the Base Lookup for when it is needed later (not a speedy process)
@@ -109,7 +107,7 @@ bases.initialise().then(function (result) {
 });
   
 getOutfitFromID("5428180936948328209");
-getOutfit("FCLM");
+//getOutfit("FCLM");
 
 module.exports = app;
 exports.getOutfitFromID = getOutfitFromID;
