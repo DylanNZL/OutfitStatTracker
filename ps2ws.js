@@ -7,7 +7,7 @@ var api_key   = require('./api_key.js'),
     items     = require('./items.js'),
     bases     = require('./bases.js'),
     database  = require('./database.js'),
-    outfit   = require('./outfit.js');
+    outfit    = require('./outfit.js');
     // Require Node Modules
 var WebSocket = require('ws'),
     fs        = require('fs'),
@@ -121,7 +121,7 @@ function storeTrackedKill(data, weapon) {
 function trackedOutfitGotADeath(data) {
     storeTrackedDeath(data, items.lookupItem(data.attacker_weapon_id));
     database.doesCharacterExist(data.attacker_character_id, function (result) {
-        if ((result) && (reuslt.length > 0)) {
+        if ((result) && (result.length > 0)) {
             database.updateKillsOfACharacter(data.attacker_character_id);
             database.updateOutfitDeaths(result.outfit_id);
         } else {
@@ -152,19 +152,21 @@ function itsFacilityData(data) {
         // Will only count it if it was a capture not a defense.
         if (data.outfit_id == trackedOutfit.outfit_id) {
             // The tracked outfit captured a base
-            addBaseCaptureToDB(data);
+            addBaseCaptureToDB(data, bases.loookupBase(data.facility_id));
         }
     }
-    console.error("Base capture:");
-    console.log(data);
-    console.log(bases.loookupBase(data.facility_id));
 }
 
-function addBaseCaptureToDB(data) {
-    // Get base ID
-    // To Store: TimeStamp | Factility ID |
-    console.log(bases.loookupBase(data.facility_id));
-    console.log(data.facility_id);
+function addBaseCaptureToDB(data, obj) {
+    //Store the base in the databases
+    database.addBaseCapture(data.timestamp, obj.facility_name, data.old_faction_id, data.new_faction_id, data.outfit_id);
+    database.doesBaseExist(data.dacility_id).then(function (result) {
+        if ((result) && (result.length > 0)) {
+            database.updateCapturesOfABase(data.facility_id);
+        } else {
+            database.addNewBaseCaptureToCaptures(data.facility_id, obj.facility_name);
+        }
+    })
 }
 
 exports.createStream = createStream;
