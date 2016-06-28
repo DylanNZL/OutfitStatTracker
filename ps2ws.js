@@ -6,7 +6,8 @@ var api_key   = require('./api_key.js'),
     app       = require('./app.js');
     items     = require('./items.js'),
     bases     = require('./bases.js'),
-    outfits   = require('./outfit.js');
+    database  = require('./database.js'),
+    outfit   = require('./outfit.js');
     // Require Node Modules
 var WebSocket = require('ws'),
     fs        = require('fs'),
@@ -83,9 +84,22 @@ function itsPlayerData(data) {
 
 function trackedOutfitGotAKill(data) {
     // Store in to Outfit Kills db
-    // To Store: Timestamp | Killer ID | Killer Weapon | Killer Loadout ID | Loser ID | Loser Weapon | Is Headshot |
+    // To Store: Timestamp | Killer ID | Killer Weapon | Killer Loadout ID | Loser ID | Loser loadout | Is Headshot |
     //
     var weapon = items.lookupItem(data.attacker_weapon_id);
+    storeTrackedKill(data, weapon);
+}
+
+function storeTrackedKill(data, weapon) {
+    // check if the outfit of the loser is in the cache
+
+    // Store kill in tracked Kill table
+    database.addTrackedKill(data.timestamp, data.attacker_character_id, weapon, data.attacker_loadout_id, data_character_id, data_chaacter_loadout_id, data.is_headshot);
+    if (database.doesCharacterExist(data.character_id)) {
+        
+    } else {
+
+    }
 }
 
 function trackedOutfitGotADeath(data) {
@@ -93,6 +107,24 @@ function trackedOutfitGotADeath(data) {
     // To Store: Timestamp | Killer ID | Killer Weapon | Killer Loadout ID | Loser ID | Loser Weapon | Is Headshot |
     //
     var weapon = items.lookupItem(data.attacker_weapon_id);
+}
+
+function storeTrackedDeath(data) {
+    //check if the outfit of the killer is in the cache
+    if (!charInCache(data.attacker_character_id)) {
+        findOutfit(data.attacker_character_id);
+    }
+    //store death in death table
+    var obj = {
+        time : data.timestamp,
+        killer : data.attacker_character_id,
+        weapon : weapon,
+        loadout : data.attacker_loadout_id,
+        loser : data.character_id,
+        loserOutfit : '0',
+        loserLoadout : data.character_loadout_id,
+        isHeadshot : data.is_headshot
+    };
 }
 
 function itsFacilityData(data) {
