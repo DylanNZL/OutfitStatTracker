@@ -2,17 +2,9 @@
  * Created by dylancross on 27/06/16.
  */
 // Required Files
-var Outfit        = require('./outfit'),
-    ps2ws         = require('./ps2ws'),
-    api_key       = require('./api_key'),
-    items         = require('./items.js'),
-    bookshelf     = require('./bookshelf.js'),
-    bases         = require('./bases.js');
+var bookshelf     = require('./bookshelf.js');
 // Required Modules
-var knex          = require('knex'),
-    Q             = require('q');
-// Global Variables
-
+var knex          = require('knex');
 
 // Insert a tracked outfit kill into the appropriate databases
 function addTrackedKill(mTime, mKiller, mWeapon, mLoadout, mLoser, mLoserLoadout, mIsHeadshot) {
