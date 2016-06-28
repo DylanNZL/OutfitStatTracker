@@ -59,8 +59,6 @@ function alterObject(outfit) {
         outfit_id : outfit.outfit_id,
         name : outfit.name,
         faction : outfit.faction,
-        kills : 0,
-        deaths : 0,
         members : {}
     };
     outfit.members.forEach(function(member) {
@@ -82,8 +80,6 @@ function fetchOutfitAlias(url) {
         var obj = {
             name : body.character_list[0].name.first,
             rank : body.character_list[0].battle_rank.value,
-            kills : 0,
-            deaths : 0,
             faction : body.character_list[0].faction_id,
             outfitName : body.character_list[0].outfit.name,
             outfitAlias : body.character_list[0].outfit.alias,
@@ -105,16 +101,12 @@ function fetchOutfitDataFromAlias(url) {
             outfit_id : body.outfit_list[0].outfit_id,
             name : body.outfit_list[0].name,
             faction : body.outfit_list[0].leader.faction_id,
-            kills : 0,
-            deaths : 0,
             members : {}
         };
         body.outfit_list[0].members.forEach(function(result) {
             if ((result.hasOwnProperty('name')) && (result.name.hasOwnProperty('first'))) {
                 var memObj = {
                     name: result.name.first,
-                    kills: 0,
-                    deaths: 0
                 };
                 if (!obj.members.hasOwnProperty(result.character_id)) {
                     obj.members[character_id] = memObj;
