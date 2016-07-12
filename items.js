@@ -2,7 +2,8 @@
  * Created by Mono on 04-Apr-16.
  */
   // Required Files
-var api_key   = require('./api_key.js');
+var api_key   = require('./api_key.js'),
+    database  = require('./database.js');
   // Required Modules
 var prequest  = require('prequest'),
     Q         = require('q');
@@ -38,6 +39,7 @@ function initialise() {
       // template is populated, add it to items lookup object
       if (obj._id > 0) {
         items['item_' + obj._id] = obj;
+        database.populateWeapons(obj);
       }
     });
     response.resolve(true);
@@ -55,14 +57,6 @@ function lookupItem(item_id) {
   }
   return JSON.parse(mItemTemplate);
 }
-
-/*
-  // Test items inside items.js
-initialise().then(function (result) {
-  console.log(lookupItem(1)); // should return mag cutter
-  console.log(lookupItem(2)); // should return mag shot
-});
-*/
 
 exports.initialise = initialise;
 exports.lookupItem = lookupItem;

@@ -2,7 +2,8 @@
  * Created by dylancross on 6/06/16.
  */
     // Required files
-var api_key     = require('./api_key.js');
+var api_key     = require('./api_key.js'),
+    database    = require('./database.js');
     // Required modules
 var prequest    = require('prequest'),
     Q           = require('q');
@@ -45,6 +46,7 @@ function initialise() {
                     // template is populated, add it to bases as long as it has an ID and isn't already in the object.
                     if ((obj.facility_id > 0) && (!bases.hasOwnProperty(obj.facility_id))) {
                         bases[obj.facility_id] = obj;
+                        database.populateBases(obj);
                     }
                 });
             }
