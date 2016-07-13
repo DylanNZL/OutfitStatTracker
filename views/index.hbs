@@ -150,24 +150,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>Test</td>
-                <td>Test Base</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Test</td>
-                <td>Test Base</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Test</td>
-                <td>Test Base</td>
-                <td>2</td>
-            </tr>
+            {{#each bases}}
+                <tr>
+                    <td>{{this.base_id}}</td>
+                    <td>{{this.base_name}}</td>
+                    <td>{{this.base_type}}</td>
+                    <td>{{this.captures}}</td>
+                </tr>
+            {{/each}}
             </tbody>
         </table>
     </div>

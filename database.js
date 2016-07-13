@@ -435,9 +435,13 @@ function selectAllTrackedData(callback) {
 
 /* ========================================== Items Queries ========================================== */
 
+
+
+/* ========================================== Bases Queries ========================================== */
+
 // grab all the base data for GUI
 function selectAllBaseData(callback) {
-    bookshelf.knex('bases').select('base_id', 'base_name', 'captures').then(function (data) {
+    bookshelf.knex('bases').select('base_id', 'base_name', 'base_type', 'captures').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
@@ -468,7 +472,7 @@ function baseName (mID, callback) {
 function baseCaptures(mID, callback) {
     bookshelf.knex('bases').where('base_id', mID).select('captures').then(function (data) {
         if ((data) && (data.length > 0)) {
-           callback(data);
+            callback(data);
         } else {
             console.error('baseCaptures: ' + mID + ' not found');
             callback(0);
@@ -478,8 +482,6 @@ function baseCaptures(mID, callback) {
         callback(0);
     })
 }
-
-/* ========================================== Bases Queries ========================================== */
 
 /* ========================================== Function Tests ========================================== */
 
@@ -522,8 +524,8 @@ selectAllTrackedData(function (data) {
 }); */
 
 // Base Tests
-
-/*selectAllBaseData(function (data) {
+/*
+selectAllBaseData(function (data) {
     // print out the returned data
     var obj = JSON.stringify(data);
     console.log("result: " + obj);
@@ -575,3 +577,6 @@ exports.addBaseCapture              = addBaseCapture;
 exports.addNewBaseCaptureToCaptures = addNewBaseCaptureToCaptures;
 exports.updateCapturesOfABase       = updateCapturesOfABase;
 exports.doesBaseExist               = doesBaseExist;
+
+//GUI
+exports.selectAllBaseData           = selectAllBaseData;
