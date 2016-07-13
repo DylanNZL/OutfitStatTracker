@@ -1,8 +1,68 @@
 body {
-  padding: 50px;
+  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-align: center;
 }
 
 a {
   color: #00B7FF;
+}
+
+/* ----- Div Styling ----- */
+
+#logo {
+  background-image: url('../images/fclmSmall.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 200px;
+}
+
+#background {
+  width: 100%;
+}
+
+.buffer {
+  width: 15%;
+  text-align: center;
+  display: inline-block;
+}
+
+#content {
+  width: 68%;
+  display: inline-block;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#kills {
+
+}
+
+/* ---- Table Styling ---- */
+
+table {
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+th {
+  height: 40px;
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #ddd;
+}
+
+td {
+  height: 30px;
+  border: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+  background-color: #FAFAFA
+}
+
+tr:hover {
+  background-color: #E5E5E5
 }
