@@ -4,6 +4,9 @@ var Outfit        = require('./outfit'),
     api_key       = require('./api_key'),
     routes        = require('./routes/index'),
     users         = require('./routes/users'),
+    populateBase  = require('./routes/populate_base_db'),
+    populateItems = require('./routes/populate_item_db'),
+    initialisation= require('./routes/intitialisation'),
     items         = require('./items.js'),
     database      = require('./database.js'),
     bases         = require('./bases.js');
@@ -34,6 +37,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/populate_base_db', populateBase);
+app.use('/populate_item_db', populateItems);
+app.use('/initialise_database', initialisation);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -75,9 +81,13 @@ function getOutfit(OutfitTag) {
   var promises = [];
   promises.push(Outfit.fetchTrackingOutfit(OutfitTag));
   Q.allSettled(promises).then(function (results) {
-    console.log("Outfit: " + JSON.stringify(results[0].value));
-    trackedOutfit = results[0].value;
-    //ps2ws.createStream(trackedOutfit);
+      console.log("===========================================================================================================================================================");
+      console.log("Outfit: " + JSON.stringify(results[0].value));
+      trackedOutfit = results[0].value;
+      console.log("===========================================================================================================================================================");
+      // only use to populate the db once
+      // database.fillTracked(trackedOutfit);
+      ps2ws.createStream(trackedOutfit);
     return response.promise;
   });
 }
@@ -90,7 +100,8 @@ function getOutfitFromID(CharacterID) {
   });
 
 }
-  // Initialise the Item Lookup for when it is needed later (not a speedy process)  
+  // Initialise the Item Lookup for when it is needed later (not a speedy process)
+/*
 items.initialise().then(function (result) {
   if (result) {
     console.log("Items Initialised");
@@ -98,16 +109,9 @@ items.initialise().then(function (result) {
     console.error("Items did not initialise");
   }
 });
-  // Initialise the Base Lookup for when it is needed later (not a speedy process)
-bases.initialise().then(function (result) {
-  if (result) {
-    console.log("Bases Initialised");
-  } else {
-    console.error("Bases did not initialise");
-  }
-});
-  
-getOutfitFromID("5428180936948328209");
+
+  */
+//getOutfitFromID("5428180936948328209");
 //getOutfit("FCLM");
 
 module.exports = app;
