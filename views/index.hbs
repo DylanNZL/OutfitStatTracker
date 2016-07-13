@@ -20,37 +20,23 @@
                 <tr>
                     <th>#</th>
                     <th>Player</th>
-                    <th>Outfit</th>
+                    <th>Battle Rank</th>
                     <th>Tracked Kills</th>
                     <th>Tracked Deaths</th>
                     <th>Tracked KDR</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
+            {{#each tracked}}
                 <tr>
-                    <td>1</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
+                    <td>{{this.character_id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.rank}}</td>
+                    <td>{{this.kills}}</td>
+                    <td>{{this.deaths}}</td>
+                    <td>{{kdr this.kills this.deaths}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
+            {{/each}}
             </tbody>
         </table>
     </div>
@@ -69,30 +55,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
+                {{#each characters}}
+                    <tr>
+                        <td>{{this.character_id}}</td>
+                        <td>{{this.outfit_id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.kills}}</td>
+                        <td>{{this.deaths}}</td>
+                        <td>{{kdr this.kills this.deaths}}</td>
+                    </tr>
+                {{/each}}
             </tbody>
         </table>
     </div>
@@ -109,32 +81,18 @@
                     <th>Kills of FCLM</th>
                     <th>KDR against FCLM</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
+            {{#each characters}}
                 <tr>
-                    <td>1</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
+                    <td>{{this.character_id}}</td>
+                    <td>{{this.outfit_id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.kills}}</td>
+                    <td>{{this.deaths}}</td>
+                    <td>{{kdr this.kills this.deaths}}</td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Test</td>
-                    <td>Test Outfit</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td>0.5</td>
-                </tr>
+            {{/each}}
             </tbody>
         </table>
     </div>

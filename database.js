@@ -413,7 +413,7 @@ function doesBaseExist(mID, callback) {
 
 // grab all the tracked data for GUI
 function selectAllTrackedData(callback) {
-    bookshelf.knex('tracked').select('name', 'rank', 'kills', 'deaths', 'headshots').then(function (data) {
+    bookshelf.knex('tracked').select('character_id','name', 'rank', 'kills', 'deaths', 'headshots').then(function (data) {
         if ((data) && (data.length > 0)) {
             //console.log(data);
             callback(data)
@@ -428,6 +428,20 @@ function selectAllTrackedData(callback) {
 }
 
 /* ======================================== Character Queries ======================================== */
+
+function selectAllCharacterData(callback) {
+    bookshelf.knex('characters').select('character_id','name','kills','deaths','outfit_id').then(function (data) {
+        if ((data) && (data.length > 0)) {
+            callback(data);
+        } else {
+            console.error('no data ' + data + '\n selectAllCharacterData');
+            callback(0);
+        }
+    }).catch(function (err) {
+        console.error('selectAllCharacterData ' + err);
+        callback(0);
+    })
+}
 
 /* ========================================= Outfit Queries ========================================= */
 
@@ -579,4 +593,6 @@ exports.updateCapturesOfABase       = updateCapturesOfABase;
 exports.doesBaseExist               = doesBaseExist;
 
 //GUI
+exports.selectAllTrackedData        = selectAllTrackedData;
+exports.selectAllCharacterData      = selectAllCharacterData;
 exports.selectAllBaseData           = selectAllBaseData;

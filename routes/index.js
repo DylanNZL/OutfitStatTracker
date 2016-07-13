@@ -2,7 +2,8 @@ var express   = require('express'),
     bases     = require('../bases'),
     items     = require('../items'),
     database  = require('../database'),
-    router    = express.Router();
+    router    = express.Router(),
+    Handlebars = require('hbs');
 
 
 /* GET home page. */
@@ -12,11 +13,22 @@ router.get('/', function(req, res, next) {
 
 function getData(res) {
   database.selectAllBaseData(function (result) {
-    res.render('index', {
-      title: 'FCLM Tracker',
-      bases: result
+    database.selectAllCharacterData(function (data) {
+      database.selectAllTrackedData(function (t) {
+        res.render('index', {
+          title: 'FCLM Tracker',
+          tracked : t,
+          characters: data,
+          bases: result
+        });
+      });
     });
   });
 }
 
+Handlebars.registerHelper("kdr", function(lvalue, rvalue) {
+  lvalue = parseInt(lvalue);
+  rvalue = parseInt(rvalue);
+  return lvalue / rvalue;
+});
 module.exports = router;
