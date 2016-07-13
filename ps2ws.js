@@ -70,19 +70,25 @@ function dealWithData(raw) {
 
 function itsPlayerData(data) {
     // determines whether the data is for a kill by the tracked outfit or a death.
-    if ((trackedOutfit.hasOwnProperty(data.attacker_character_id)) && (trackedOutfit.hasOwnProperty(data.character_id))) {
+    if ((trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) && (trackedOutfit.members.hasOwnProperty(data.character_id))) {
         trackedOutfitTeamKilled(data);
+        database.addDeath(trackedOutfit.members[data.character_id]);
+        console.log("teamkill:" + JSON.stringify(trackedOutfit.members[data.attacker_character_id]));
     }
-    else if (trackedOutfit.hasOwnProperty(data.attacker_character_id)) {
+    else if (trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) {
         trackedOutfitGotAKill(data);
+        if (data.is_headshot) {
+            database.addHeadshotKill(trackedOutfit.members[data.attacker_character_id]);
+        } else {
+            database.addKill(trackedOutfit.members[data.attacker_character_id]);
+        }
+        console.log("kill:" + JSON.stringify(trackedOutfit.members[data.attacker_character_id]));
     }
-    else if (trackedOutfit.hasOwnProperty(data.character_id)) {
+    else if (trackedOutfit.members.hasOwnProperty(data.character_id)) {
         trackedOutfitGotADeath(data);
+        database.addDeath(trackedOutfit.members[data.character_id]);
+        console.log("Death:" + JSON.stringify(trackedOutfit.members[data.character_id]));
     }
-    console.error("Kill/Death:");
-    console.log(app.getOutfitFromID(data.attacker_character_id));
-    console.log(items.lookupItem(data.attacker_weapon_id));
-    console.log(app.getOutfitFromID(data.character_id));
 }
 
 function trackedOutfitTeamKilled(data) {
@@ -92,9 +98,9 @@ function trackedOutfitTeamKilled(data) {
 }
 
 function trackedOutfitGotAKill(data) {
-    storeTrackedKill(data, items.lookupItem(data.attacker_weapon_id));
+    storeTrackedKill(data);
     database.doesCharacterExist(data.character_id, function (result) {
-        if ((data) && (data.length > 0)) {
+        if ((result) && (result.length > 0)) {
             database.updateDeathsOfACharacter(data.character_id);
             database.updateOutfitDeaths(result.outfit_id);
         } else {
@@ -113,9 +119,9 @@ function trackedOutfitGotAKill(data) {
     });
 }
 
-function storeTrackedKill(data, weapon) {
+function storeTrackedKill(data) {
     // Store kill in tracked Kill table
-    database.addTrackedKill(data.timestamp, data.attacker_character_id, weapon, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
+    database.addTrackedKill(data.timestamp, data.attacker_character_id, data.attacker_weapon_id, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
 }
 
 function trackedOutfitGotADeath(data) {
@@ -142,7 +148,7 @@ function trackedOutfitGotADeath(data) {
 
 function storeTrackedDeath(data) {
     // Store the death in the tracked death db
-    database.addTrackedKill(data.timestamp, data.attacker_character_id, weapon, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
+    database.addTrackedDeath(data.timestamp, data.attacker_character_id, data.attacker_weapon_id, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
 }
 
 function itsFacilityData(data) {
