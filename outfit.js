@@ -12,16 +12,17 @@ function fetchTrackingOutfit(outfitTag) {
     // Sends a request to the PS2 API to get the outfit data based on a tag
     var response2 = Q.defer();
     outfitTag = outfitTag.toLowerCase();
-    //URL http://census.daybreakgames.com/get/ps2/outfit/?alias_lower=fclm&c:resolve=leader%28faction_id%29,member_character%28name%29&c:hide=time_created,time_created_date
+    //URL http://census.daybreakgames.com/get/ps2/outfit/?alias_lower=fclm&c:resolve=leader(faction_id),member_character(name.first,battle_rank.value)&c:hide=time_created,time_created_date
     //factions: 0 - NS, 1 - VS, 2 - NC, 3 - TR
-    var url = 'https://census.daybreakgames.com/s:' + api_key.KEY + '/get/ps2/outfit/?alias_lower=' + outfitTag + '&c:resolve=leader(faction_id),member_character(name)&c:hide=time_created,time_created_date';
+    var url = 'https://census.daybreakgames.com/s:' + api_key.KEY + '/get/ps2/outfit/?alias_lower=' + outfitTag + '&c:resolve=leader(faction_id),member_character(name.first,battle_rank.value)&c:hide=time_created,time_created_date';
     prequest(url).then(function (body) {
         var outfitMembers = [];
         body.outfit_list[0].members.forEach(function(result) {
             if ((result.hasOwnProperty('name')) && (result.name.hasOwnProperty('first'))) {
                 outfitMembers.push({
                     character_id: result.character_id,
-                    name: result.name.first
+                    name: result.name.first,
+                    rank : result.battle_rank.value
                 });
             } else {
                 console.error('ERROR: there is a character that does not have a name (has been deleted): ' + result.character_id);
@@ -40,7 +41,7 @@ function fetchTrackingOutfit(outfitTag) {
     });
     return response2.promise;
 }
-
+/*
 function promiseForFetchOutfit(outfitTag) {
     var response3 = Q.defer();
     var promises = [];
@@ -73,7 +74,7 @@ function alterObject(outfit) {
     });
     return outfit_obj;
 }
-
+*/
 function fetchOutfitAlias(url) {
     var deferred = Q.defer();
     prequest(url).then(function (body) {
@@ -106,7 +107,7 @@ function fetchOutfitDataFromAlias(url) {
         body.outfit_list[0].members.forEach(function(result) {
             if ((result.hasOwnProperty('name')) && (result.name.hasOwnProperty('first'))) {
                 var memObj = {
-                    name: result.name.first,
+                    name: result.name.first
                 };
                 if (!obj.members.hasOwnProperty(result.character_id)) {
                     obj.members[character_id] = memObj;
@@ -134,5 +135,5 @@ function fetchOutfitFromCharacterID(CharID) {
     return response.promise;
 }
 
-exports.fetchTrackingOutfit = fetchTrackingOutfit;
-exports.fetchOutfitFromCharacterID = fetchOutfitFromCharacterID;
+exports.fetchTrackingOutfit         = fetchTrackingOutfit;
+exports.fetchOutfitFromCharacterID  = fetchOutfitFromCharacterID;
