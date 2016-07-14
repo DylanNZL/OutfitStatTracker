@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('outfits', function (table) {
             table.string('outfit_id').unique();
             table.string('name');
-            table.integer('alias');
+            table.string('alias');
             table.integer('kills');
             table.integer('deaths');
             table.integer('faction');
