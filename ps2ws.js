@@ -162,42 +162,4 @@ function itsFacilityData(data) {
     }
 }
 
-//Tests:
-// mono kills pyro
-var d = {
-    timestamp: 1468324800000,
-    attacker_character_id : "5428010618038027489",
-    attacker_weapon_id : 7,
-    attacker_loadout_id : 4,
-    character_id : "5428010917265719857",
-    character_loadout_id : 5,
-    is_headshot : 1
-};
-// kill from a test char
-var d1 = {
-    timestamp: 1468324800000,
-    attacker_character_id : "5428010618038027489",
-    attacker_weapon_id : 7,
-    attacker_loadout_id : 4,
-    character_id : "123456",
-    character_loadout_id : 5,
-    is_headshot : 1
-};
-//kill from an unkown char
-var d2 = {
-    timestamp: 1468324800000,
-    attacker_character_id : "7701704679995873105",
-    attacker_weapon_id : 7,
-    attacker_loadout_id : 4,
-    character_id : "5428010618038027489",
-    character_loadout_id : 5,
-    is_headshot : 1
-};
-
-// Teamkill
-// trackedTeamKillDB(d);
-// Kill
-trackedOutfitDeathDB(d2);
-// Death
-
 exports.createStream = createStream;
