@@ -73,21 +73,22 @@ function itsPlayerData(data) {
     if ((trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) && (trackedOutfit.members.hasOwnProperty(data.character_id))) {
         trackedOutfitTeamKilled(data);
         database.addDeath(trackedOutfit.members[data.character_id]);
-        console.log("teamkill:" + JSON.stringify(trackedOutfit.members[data.attacker_character_id]));
+        database.addEventToWeapon(data.attacker_weapon_id, 0, 1, 0);
     }
     else if (trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) {
         trackedOutfitGotAKill(data);
         if (data.is_headshot) {
             database.addHeadshotKill(trackedOutfit.members[data.attacker_character_id]);
+            database.addEventToWeapon(data.attacker_weapon_id, 1, 0, 1);
         } else {
             database.addKill(trackedOutfit.members[data.attacker_character_id]);
+            database.addEventToWeapon(data.attacker_weapon_id, 1, 0, 0);
         }
-        console.log("kill:" + JSON.stringify(trackedOutfit.members[data.attacker_character_id]));
     }
     else if (trackedOutfit.members.hasOwnProperty(data.character_id)) {
         trackedOutfitGotADeath(data);
         database.addDeath(trackedOutfit.members[data.character_id]);
-        console.log("Death:" + JSON.stringify(trackedOutfit.members[data.character_id]));
+        database.addEventToWeapon(data.attacker_weapon_id, 0, 1, 0);
     }
 }
 

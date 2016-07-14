@@ -317,6 +317,25 @@ function populateWeapons (mObj) {
     })
 }
 
+// Adds a kill/death/headshot to a weapon
+function addEventToWeapon (mID, kill, death, headshot) {
+    bookshelf.knex('weapons').where('weapon_id', mID).select('kills', 'deaths', 'headshots').then(function(data) {
+        if ((data) && (data.length > 0)) {
+            var k = kill + data[0].kills;
+            var d = death + data[0].deaths;
+            var h = headshot + data[0].headshots;
+            bookshelf.knex('weapons').where('weapon_id', mID).update({ kills : k, deaths : d, headshots : h }).then(function (res) {
+            }).catch(function (err) {
+                console.error("addStat update error " + err);
+            })
+        } else {
+            console.error("addStat - No Data" + data);
+        }
+    }).catch(function (err) {
+        console.error("addStat " + err);
+    })
+}
+
 // checks if an item exists in the database
 function doesItemExist (mID, callback) {
     bookshelf.knex('weapons').where('weapon_id', mID).select('name').then(function (data) {
@@ -511,13 +530,15 @@ function baseCaptures(mID, callback) {
 //      console.log("we made it");
 //  });
 //  Base Function Tests
-//
+
+
 //  Item Function Tests
 //      doesItemExist(129, function(data) {
 //          if ((data) && (data.length > 0)) {
 //              console.log(data);
 //          }
 //  });
+//  addEventToWeapon(1, 1, 1, 1);
 
 /***        GUI Tests        ***/
 
@@ -582,6 +603,7 @@ exports.updateOutfitDeaths          = updateOutfitDeaths;
 exports.doesOutfitExist             = doesOutfitExist;
 // Weapon Functions
 exports.populateWeapons             = populateWeapons;
+exports.addEventToWeapon            = addEventToWeapon;
 exports.doesItemExist               = doesItemExist;
 // Base Functions
 exports.populateBases               = populateBases;
