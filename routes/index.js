@@ -14,12 +14,15 @@ router.get('/', function(req, res, next) {
 function getData(res) {
   database.selectAllBaseData(function (result) {
     database.selectAllCharacterData(function (data) {
-      database.selectAllTrackedData(function (t) {
-        res.render('index', {
-          title: 'FCLM Tracker',
-          tracked : t,
-          characters: data,
-          bases: result
+      database.selectAllTrackedData(function (track) {
+        database.selectAllWeaponData(function (weapon) {
+          res.render('index', {
+            title: 'FCLM Tracker',
+            weapons : weapon,
+            tracked : track,
+            characters : data,
+            bases : result
+          });
         });
       });
     });

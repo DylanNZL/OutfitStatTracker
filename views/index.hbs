@@ -125,6 +125,60 @@
             </tbody>
         </table>
     </div>
+    <div id="weaponsKills" class="tableDiv">
+        <h3 id="weaponsKillsTitle">Weapons used for FCLM kills:</h3>
+        <table id="weaponsKillsTable">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Weapon</th>
+                <th>Kills</th>
+                <th>Headshots</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div>
+                {{#each weapons}}
+                    {{#if this.kills}}
+                    <tr>
+                        <td>{{this.weapon_id}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.kills}}</td>
+                        <td>{{this.headshots}}</td>
+                    </tr>
+                    {{/if}}
+                {{/each}}
+            </div>
+            </tbody>
+        </table>
+    </div>
+    <div id="weaponsDeaths" class="tableDiv">
+        <h3 id="weaponsDeathsTitle">Weapons used in FCLM deaths:</h3>
+        <table id="weaponsDeathsTable">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Weapon</th>
+                <th>Kills Against FCLM</th>
+                <th>Headshots</th>
+            </tr>
+            </thead>
+            <tbody>
+            <div>
+                {{#each weapons}}
+                    {{#if this.deaths}}
+                        <tr>
+                            <td>{{this.weapon_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.deaths}}</td>
+                            <td>{{this.headshots}}</td>
+                        </tr>
+                    {{/if}}
+                {{/each}}
+            </div>
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="buffer">
     <br>

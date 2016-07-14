@@ -449,7 +449,19 @@ function selectAllCharacterData(callback) {
 
 /* ========================================== Items Queries ========================================== */
 
-
+function selectAllWeaponData(callback) {
+    bookshelf.knex('weapons').select('weapon_id', 'name', 'kills', 'deaths', 'headshots').then(function (data) {
+        if ((data) && (data.length > 0)) {
+            callback(data);
+        } else {
+            console.error('No Data in selectAllWeaponData Query ' + data);
+            callback(0);
+        }
+    }).catch(function (err) {
+        console.error('selectAllWeaponData ' + err);
+        callback(0);
+    })
+}
 
 /* ========================================== Bases Queries ========================================== */
 
@@ -596,3 +608,4 @@ exports.doesBaseExist               = doesBaseExist;
 exports.selectAllTrackedData        = selectAllTrackedData;
 exports.selectAllCharacterData      = selectAllCharacterData;
 exports.selectAllBaseData           = selectAllBaseData;
+exports.selectAllWeaponData         = selectAllWeaponData;
