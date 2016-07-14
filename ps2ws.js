@@ -69,7 +69,7 @@ function dealWithData(raw) {
 }
 
 function itsPlayerData(data) {
-    // determines whether the data is for a kill by the tracked outfit or a death.
+    // determines whether the data is for a kill by the tracked outfit, a teamkill or a death.
     if ((trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) && (trackedOutfit.members.hasOwnProperty(data.character_id))) {
        trackedTeamKillDB(data);
     }
@@ -77,9 +77,7 @@ function itsPlayerData(data) {
         trackedOutfitKillDB(data);
     }
     else if (trackedOutfit.members.hasOwnProperty(data.character_id)) {
-        trackedOutfitGotADeath(data);
-        database.addDeath(trackedOutfit.members[data.character_id]);
-        database.addEventToWeapon(data.attacker_weapon_id, 0, 1, 0);
+        trackedOutfitDeathDB(data);
     }
 }
 
@@ -122,32 +120,33 @@ function trackedOutfitKillDB(data) {
     database.addEventToWeapon(data.attacker_weapon_id, 1, 0, data.is_headshot);
 }
 
-function trackedOutfitGotADeath(data) {
-    storeTrackedDeath(data, items.lookupItem(data.attacker_weapon_id));
+function trackedOutfitDeathDB(data) {
     database.doesCharacterExist(data.attacker_character_id, function (result) {
         if ((result) && (result.length > 0)) {
-            database.updateKillsOfACharacter(data.attacker_character_id);
-            database.updateOutfitDeaths(result.outfit_id);
+            // If it does exist, update the deaths of both the character and his outfit (if they're in one)
+            database.updateDeathsOfACharacter(data.character_id);
+            database.updateOutfitDeaths(result[0].outfit_id);
         } else {
+            // If it doesn't fetch the data and store it in the correct DB(s)
             outfit.fetchOutfitFromCharacterID(data.attacker_character_id).then(function (res) {
                 var obj = res[0].value;
-                //console.log(obj.outfit_id + " | " + obj.name + " | " + obj.outfitAlias + " | " + obj.faction + " | " + obj.outfitCount);
                 database.addCharacterKill(data.attacker_character_id, obj.name, obj.rank, obj.faction, obj.outfit_id);
                 database.doesOutfitExist(obj.outfit_id, function (r) {
                     if ((r) && (r.length > 0)) {
                         database.updateOutfitKills(obj.outfit_id);
                     } else {
-                        database.addOutfitWithKills(obj.outfit_id, obj.outfitName, obj.outfitAlias, obj.faction, obj.outfitCount);
+                        database.addOutfitWithKill(obj.outfit_id, obj.outfitName, obj.outfitAlias, obj.faction, obj.outfitCount);
                     }
                 });
             });
         }
     });
-}
-
-function storeTrackedDeath(data) {
-    // Store the death in the tracked death db
+    // Add to Tracked DB
+    database.addDeath(data.character_id);
+    // Store in History DB
     database.addTrackedDeath(data.timestamp, data.attacker_character_id, data.attacker_weapon_id, data.attacker_loadout_id, data.character_id, data.character_loadout_id,data.is_headshot);
+    // Store in weapon DB
+    database.addEventToWeapon(data.attacker_weapon_id, 0, 1, 0);
 }
 
 function itsFacilityData(data) {
@@ -187,10 +186,10 @@ var d1 = {
 //kill from an unkown char
 var d2 = {
     timestamp: 1468324800000,
-    attacker_character_id : "5428010618038027489",
+    attacker_character_id : "7701704679995873105",
     attacker_weapon_id : 7,
     attacker_loadout_id : 4,
-    character_id : "5428021759057923985",
+    character_id : "5428010618038027489",
     character_loadout_id : 5,
     is_headshot : 1
 };
@@ -198,7 +197,7 @@ var d2 = {
 // Teamkill
 // trackedTeamKillDB(d);
 // Kill
-trackedOutfitKillDB(d2);
+trackedOutfitDeathDB(d2);
 // Death
 
 exports.createStream = createStream;
