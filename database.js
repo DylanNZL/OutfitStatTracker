@@ -122,7 +122,7 @@ function doesCharacterExist (char_id, callback) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
-            console.error('doesCharacterExist - No Data ' + data);
+            //console.error('doesCharacterExist - No Data ' + data);
             callback(0);
         }
     }).catch(function (err) {
@@ -190,7 +190,7 @@ function addDeath (mID) {
 //
 function doesTrackedCharExist (mID, callback) {
     bookshelf.knex('tracked').where('character_id', mID).select('character_id').then(function (data) {
-        console.log(data);
+        //console.log(data);
         callback(data);
     }).catch(function (err) {
         console.error('addDeath' + err);
@@ -240,7 +240,7 @@ function addOutfitWithDeath(mID, mName, mAlias, mFaction, mMembers) {
     })
 }
 
-// Update Outfit Kills
+// Update Out   fit Kills
 function updateOutfitKills(mID) {
     bookshelf.knex('outfits').where('outfit_id', mID).select('kills').then(function (data) {
         var dat = data[0].kills;
@@ -272,13 +272,11 @@ function updateOutfitDeaths(mID) {
 
 // Check if an outfit exists in the db
 function doesOutfitExist(mID, callback) {
-    console.log("123: " + mID);
     bookshelf.knex('outfits').where('outfit_id', mID).select('outfit_id').then(function (data) {
         if ((data) && (data.length > 0)) {
-            console.log("12" + data);
             callback(true);
         } else {
-            console.error('doesOutfitExist No Data ' + data);
+            //console.error('doesOutfitExist No Data ' + mID + data);
             callback(0);
         }
     }).catch(function (err) {
@@ -529,6 +527,8 @@ function baseCaptures(mID, callback) {
 //          }
 //  });
 //  addEventToWeapon(1, 1, 1, 1);
+
+//addOutfitWithDeath(123, "ggg", "678", 6, 90);
 
 /***        GUI Tests        ***/
 
