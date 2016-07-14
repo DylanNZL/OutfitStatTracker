@@ -13,7 +13,7 @@
     <br>
 </div>
 <div id="content">
-    <div id="outfit" style="overflow-x:auto;">
+    <div id="outfit" class="tableDiv">
         <h3>FCLM Players:</h3>
         <table id="outfitTable">
             <thead>
@@ -41,7 +41,7 @@
         </table>
     </div>
     <br>
-    <div id="kills" style="overflow-x:auto;">
+    <div id="kills" class="tableDiv">
         <h3 id="killsTitle">Players FCLM kills:</h3>
         <table id="killsTable">
             <thead>
@@ -49,13 +49,14 @@
                     <th>#</th>
                     <th>Player</th>
                     <th>Outfit</th>
-                    <th>Deaths to FCLM</th>
                     <th>Kills of FCLM</th>
+                    <th>Deaths to FCLM</th>
                     <th>KDR against FCLM</th>
                 </tr>
             </thead>
             <tbody>
                 {{#each characters}}
+                    {{#if this.deaths}}
                     <tr>
                         <td>{{this.character_id}}</td>
                         <td>{{this.outfit_id}}</td>
@@ -64,12 +65,13 @@
                         <td>{{this.deaths}}</td>
                         <td>{{kdr this.kills this.deaths}}</td>
                     </tr>
+                    {{/if}}
                 {{/each}}
             </tbody>
         </table>
     </div>
     <br>
-    <div id="deaths" style="overflow-x:auto;">
+    <div id="deaths" class="tableDiv">
         <h3 id="deathsTitle">Players FCLM dies to:</h3>
         <table id="deathsTable">
             <thead>
@@ -77,13 +79,14 @@
                     <th>#</th>
                     <th>Player</th>
                     <th>Outfit</th>
-                    <th>Deaths to FCLM</th>
                     <th>Kills of FCLM</th>
+                    <th>Deaths to FCLM</th>
                     <th>KDR against FCLM</th>
                 </tr>
             </thead>
             <tbody>
             {{#each characters}}
+                {{#if this.kills}}
                 <tr>
                     <td>{{this.character_id}}</td>
                     <td>{{this.outfit_id}}</td>
@@ -92,11 +95,12 @@
                     <td>{{this.deaths}}</td>
                     <td>{{kdr this.kills this.deaths}}</td>
                 </tr>
+                {{/if}}
             {{/each}}
             </tbody>
         </table>
     </div>
-    <div id="bases" style="overflow-x:auto;">
+    <div id="bases" class="tableDiv">
         <h3 id="baseTitle">FCLM Base Captures:</h3>
         <table id="baseTable">
             <thead>
@@ -108,6 +112,7 @@
             </tr>
             </thead>
             <tbody>
+            <div>
             {{#each bases}}
                 <tr>
                     <td>{{this.base_id}}</td>
@@ -116,6 +121,7 @@
                     <td>{{this.captures}}</td>
                 </tr>
             {{/each}}
+            </div>
             </tbody>
         </table>
     </div>

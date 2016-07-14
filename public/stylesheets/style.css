@@ -41,10 +41,20 @@ a {
 
 /* ---- Table Styling ---- */
 
+.tableDiv {
+  height: 400px;
+  overflow-y: auto;
+}
+
 table {
   width: 100%;
   text-align: center;
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+tbody {
+
 }
 
 th {
