@@ -3,7 +3,7 @@ var express   = require('express'),
     items     = require('../items'),
     database  = require('../database'),
     router    = express.Router(),
-    Handlebars = require('hbs');
+    Handlebars= require('hbs');
 
 
 /* GET home page. */

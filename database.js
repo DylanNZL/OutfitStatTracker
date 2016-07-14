@@ -187,7 +187,7 @@ function addDeath (mID) {
     })
 }
 
-//
+// does the character exist in the db
 function doesTrackedCharExist (mID, callback) {
     bookshelf.knex('tracked').where('character_id', mID).select('character_id').then(function (data) {
         //console.log(data);
@@ -240,7 +240,7 @@ function addOutfitWithDeath(mID, mName, mAlias, mFaction, mMembers) {
     })
 }
 
-// Update Out   fit Kills
+// Update Outfit Kills
 function updateOutfitKills(mID) {
     bookshelf.knex('outfits').where('outfit_id', mID).select('kills').then(function (data) {
         var dat = data[0].kills;
