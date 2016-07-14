@@ -120,7 +120,6 @@ function updateKillsOfACharacter(char_id) {
 function doesCharacterExist (char_id, callback) {
     bookshelf.knex('characters').where('character_id',char_id).select('outfit_id').then(function (data) {
         if ((data) && (data.length > 0)) {
-            console.log(data);
             callback(data);
         } else {
             console.error('doesCharacterExist - No Data ' + data);

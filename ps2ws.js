@@ -98,7 +98,7 @@ function trackedOutfitKillDB(data) {
         if ((result) && (result.length > 0)) {
             // If it does exist, update the deaths of both the character and his outfit (if they're in one)
             database.updateDeathsOfACharacter(data.character_id);
-            database.updateOutfitDeaths(result.outfit_id);
+            database.updateOutfitDeaths(result[0].outfit_id);
         } else {
             // If it doesn't fetch the data and store it in the correct DB(s)
             outfit.fetchOutfitFromCharacterID(data.character_id).then(function (res) {
@@ -164,7 +164,7 @@ function itsFacilityData(data) {
 }
 
 //Tests:
-
+// mono kills pyro
 var d = {
     timestamp: 1468324800000,
     attacker_character_id : "5428010618038027489",
@@ -174,8 +174,18 @@ var d = {
     character_loadout_id : 5,
     is_headshot : 1
 };
-
+// kill from a test char
 var d1 = {
+    timestamp: 1468324800000,
+    attacker_character_id : "5428010618038027489",
+    attacker_weapon_id : 7,
+    attacker_loadout_id : 4,
+    character_id : "123456",
+    character_loadout_id : 5,
+    is_headshot : 1
+};
+//kill from an unkown char
+var d2 = {
     timestamp: 1468324800000,
     attacker_character_id : "5428010618038027489",
     attacker_weapon_id : 7,
