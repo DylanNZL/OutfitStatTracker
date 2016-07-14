@@ -3,7 +3,7 @@
  */
     // Required files in this project
 var api_key   = require('./api_key.js'),
-    app       = require('./app.js');
+    app       = require('./app.js'),
     items     = require('./items.js'),
     bases     = require('./bases.js'),
     database  = require('./database.js'),
