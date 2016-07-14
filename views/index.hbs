@@ -13,8 +13,8 @@
     <br>
 </div>
 <div id="content">
+    <h3>FCLM Players:</h3>
     <div id="outfit" class="tableDiv">
-        <h3>FCLM Players:</h3>
         <table id="outfitTable">
             <thead>
                 <tr>
@@ -41,8 +41,8 @@
         </table>
     </div>
     <br>
+    <h3 id="killsTitle">Players FCLM kills:</h3>
     <div id="kills" class="tableDiv">
-        <h3 id="killsTitle">Players FCLM kills:</h3>
         <table id="killsTable">
             <thead>
                 <tr>
@@ -71,8 +71,8 @@
         </table>
     </div>
     <br>
+    <h3 id="deathsTitle">Players FCLM dies to:</h3>
     <div id="deaths" class="tableDiv">
-        <h3 id="deathsTitle">Players FCLM dies to:</h3>
         <table id="deathsTable">
             <thead>
                 <tr>
@@ -100,8 +100,8 @@
             </tbody>
         </table>
     </div>
+    <h3 id="baseTitle">FCLM Base Captures:</h3>
     <div id="bases" class="tableDiv">
-        <h3 id="baseTitle">FCLM Base Captures:</h3>
         <table id="baseTable">
             <thead>
             <tr>
@@ -112,7 +112,6 @@
             </tr>
             </thead>
             <tbody>
-            <div>
             {{#each bases}}
                 <tr>
                     <td>{{this.base_id}}</td>
@@ -121,12 +120,11 @@
                     <td>{{this.captures}}</td>
                 </tr>
             {{/each}}
-            </div>
             </tbody>
         </table>
     </div>
+    <h3 id="weaponsKillsTitle">Weapons used for FCLM kills:</h3>
     <div id="weaponsKills" class="tableDiv">
-        <h3 id="weaponsKillsTitle">Weapons used for FCLM kills:</h3>
         <table id="weaponsKillsTable">
             <thead>
             <tr>
@@ -137,7 +135,6 @@
             </tr>
             </thead>
             <tbody>
-            <div>
                 {{#each weapons}}
                     {{#if this.kills}}
                     <tr>
@@ -148,12 +145,11 @@
                     </tr>
                     {{/if}}
                 {{/each}}
-            </div>
             </tbody>
         </table>
     </div>
+    <h3 id="weaponsDeathsTitle">Weapons used in FCLM deaths:</h3>
     <div id="weaponsDeaths" class="tableDiv">
-        <h3 id="weaponsDeathsTitle">Weapons used in FCLM deaths:</h3>
         <table id="weaponsDeathsTable">
             <thead>
             <tr>
@@ -164,7 +160,6 @@
             </tr>
             </thead>
             <tbody>
-            <div>
                 {{#each weapons}}
                     {{#if this.deaths}}
                         <tr>
@@ -175,7 +170,6 @@
                         </tr>
                     {{/if}}
                 {{/each}}
-            </div>
             </tbody>
         </table>
     </div>
