@@ -123,9 +123,11 @@ function doesCharacterExist (char_id, callback) {
             console.log(data);
             callback(data);
         } else {
-            console.error('doesCharacterExist' + data);
-            callback(data);
+            console.error('doesCharacterExist - No Data ' + data);
+            callback(0);
         }
+    }).catch(function (err) {
+        console.error("doesCharacterExist " + err);
     });
 }
 
@@ -152,34 +154,25 @@ function fillTracked(obj) {
     });
 }
 
-// Add a kill & headshot to a characters stats
-function addHeadshotKill (mID) {
+// Add a kill/Headshot to a characters stats
+function addKill (mID, kill, headshot) {
     bookshelf.knex('tracked').where('character_id', mID).select('kills', 'headshots').then(function (data) {
-        var k = data[0].kills; k++;
-        var h = data[0].headshots; h++;
-        bookshelf.knex('tracked').where('character_id', mID).update({ kills : k, headshots : h }).then(function (res) {
+        if ((data) && (data.length > 0)) {
+            var k = data[0].kills + kill,
+                h = data[0].headshots + headshot;
+            bookshelf.knex('tracked').where('character_id', mID).update({ kills : k, headshots : h }).then(function (res) {
 
-        }).catch(function (err) {
-            console.error(err);
-        });
-    }).catch(function (err) {
-        console.error('addHeadshotKill' + err);
-    })
-}
-
-// Add a kill to a characters stats
-function addKill (mID) {
-    bookshelf.knex('tracked').where('character_id', mID).select('kills').then(function (data) {
-        var k = data[0].kills; k++;
-        bookshelf.knex('tracked').where('character_id', mID).update({ kills : k }).then(function (res) {
-
-        }).catch(function (err) {
-            console.error('2 addKill' + err);
-        });
+            }).catch(function (err) {
+                console.error(err);
+            });
+        } else {
+            console.error("No Data addKill " + data);
+        }
     }).catch(function (err) {
         console.error('addKill' + err);
     })
 }
+
 
 // Add a death to a characters stats
 function addDeath (mID) {
@@ -280,17 +273,18 @@ function updateOutfitDeaths(mID) {
 
 // Check if an outfit exists in the db
 function doesOutfitExist(mID, callback) {
+    console.log("123: " + mID);
     bookshelf.knex('outfits').where('outfit_id', mID).select('outfit_id').then(function (data) {
         if ((data) && (data.length > 0)) {
-            console.log(data);
+            console.log("12" + data);
             callback(true);
         } else {
-            console.error('2 updateOutfitDeaths' + data);
-            callback(false);
+            console.error('doesOutfitExist No Data ' + data);
+            callback(0);
         }
     }).catch(function (err) {
         console.error('doesOutfitExist' + err);
-        callback(false);
+        callback(0);
     })
 }
 
@@ -588,7 +582,6 @@ exports.updateKillsOfACharacter     = updateKillsOfACharacter;
 exports.doesCharacterExist          = doesCharacterExist;
 // Tracked Functions
 exports.fillTracked                 = fillTracked;
-exports.addHeadshotKill             = addHeadshotKill;
 exports.addKill                     = addKill;
 exports.addDeath                    = addDeath;
 exports.doesTrackedCharExist        = doesTrackedCharExist;

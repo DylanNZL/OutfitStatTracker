@@ -84,7 +84,7 @@ function fetchOutfitAlias(url) {
             faction : body.character_list[0].faction_id,
             outfitName : body.character_list[0].outfit.name,
             outfitAlias : body.character_list[0].outfit.alias,
-            outfitID : body.character_list[0].outfit.outfit_id,
+            outfit_id : body.character_list[0].outfit.outfit_id,
             outfitCount : body.character_list[0].outfit.member_count
         };
         deferred.resolve(obj);
