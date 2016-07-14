@@ -274,7 +274,7 @@ function updateOutfitDeaths(mID) {
 function doesOutfitExist(mID, callback) {
     bookshelf.knex('outfits').where('outfit_id', mID).select('outfit_id').then(function (data) {
         if ((data) && (data.length > 0)) {
-            callback(true);
+            callback(data);
         } else {
             //console.error('doesOutfitExist No Data ' + mID + data);
             callback(0);

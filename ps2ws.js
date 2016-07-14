@@ -190,7 +190,7 @@ var d2 = {
     attacker_character_id : "5428010618038027489",
     attacker_weapon_id : 7,
     attacker_loadout_id : 4,
-    character_id : "5428013610486155249",
+    character_id : "5428021759057923985",
     character_loadout_id : 5,
     is_headshot : 1
 };
