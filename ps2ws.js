@@ -158,21 +158,10 @@ function itsFacilityData(data) {
         // Will only count it if it was a capture not a defense.
         if (data.outfit_id == trackedOutfit.outfit_id) {
             // The tracked outfit captured a base
-            addBaseCaptureToDB(data, bases.loookupBase(data.facility_id));
+            database.addBaseCapture(data.timestamp, data.facility_id, data.old_previous_id, data.new_faction_id, data.outfit_id);
+            database.updateCapturesOfABase(data.facility_id);
         }
     }
-}
-
-function addBaseCaptureToDB(data, obj) {
-    //Store the base in the databases
-    database.addBaseCapture(data.timestamp, obj.facility_name, data.old_faction_id, data.new_faction_id, data.outfit_id);
-    database.doesBaseExist(data.dacility_id).then(function (result) {
-        if ((result) && (result.length > 0)) {
-            database.updateCapturesOfABase(data.facility_id);
-        } else {
-            database.addNewBaseCaptureToCaptures(data.facility_id, obj.facility_name);
-        }
-    })
 }
 
 exports.createStream = createStream;

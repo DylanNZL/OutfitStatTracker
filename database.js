@@ -350,11 +350,11 @@ function populateBases(mObj) {
 }
 
 // Adds a base capture into the DB that stores them.
-function addBaseCapture(mtime, mID, mName, mPrevFaction, mNewFaction, mOutfitID) {
+function addBaseCapture(mtime, mID, mPrevFaction, mNewFaction, mOutfitID) {
+
     var obj = {
         timestamp : mtime,
         base_id : mID,
-        base_name : mName,
         previous_faction : mPrevFaction,
         new_faction : mNewFaction,
         outfit_id : mOutfitID
@@ -363,20 +363,6 @@ function addBaseCapture(mtime, mID, mName, mPrevFaction, mNewFaction, mOutfitID)
 
     }).catch(function (err) {
         console.error('addBaseCapture' + err);
-    })
-}
-
-// Adds a base to bases DB
-function addNewBaseCaptureToCaptures(mID, mName) {
-    var obj = {
-        base_id : mID,
-        base_name : mName,
-        captures : 0
-    };
-    bookshelf.knex('bases').insert(obj).then(function (data) {
-        
-    }).catch(function (err) {
-        console.error('addNewBaseCaptureToCaptures' + err);
     })
 }
 
@@ -600,7 +586,6 @@ exports.doesItemExist               = doesItemExist;
 // Base Functions
 exports.populateBases               = populateBases;
 exports.addBaseCapture              = addBaseCapture;
-exports.addNewBaseCaptureToCaptures = addNewBaseCaptureToCaptures;
 exports.updateCapturesOfABase       = updateCapturesOfABase;
 exports.doesBaseExist               = doesBaseExist;
 
