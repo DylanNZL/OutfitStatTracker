@@ -155,9 +155,8 @@ function fillTracked(obj) {
 // Add a kill & headshot to a characters stats
 function addHeadshotKill (mID) {
     bookshelf.knex('tracked').where('character_id', mID).select('kills', 'headshots').then(function (data) {
-        console.log(data);
-        var k = data.kills; k++;
-        var h = data.headshots; h++;
+        var k = data[0].kills; k++;
+        var h = data[0].headshots; h++;
         bookshelf.knex('tracked').where('character_id', mID).update({ kills : k, headshots : h }).then(function (res) {
 
         }).catch(function (err) {
@@ -171,8 +170,7 @@ function addHeadshotKill (mID) {
 // Add a kill to a characters stats
 function addKill (mID) {
     bookshelf.knex('tracked').where('character_id', mID).select('kills').then(function (data) {
-        console.log(data);
-        var k = data.kills; k++;
+        var k = data[0].kills; k++;
         bookshelf.knex('tracked').where('character_id', mID).update({ kills : k }).then(function (res) {
 
         }).catch(function (err) {
@@ -186,8 +184,7 @@ function addKill (mID) {
 // Add a death to a characters stats
 function addDeath (mID) {
     bookshelf.knex('tracked').where('character_id', mID).select('deaths').then(function (data) {
-        console.log(data);
-        var d = data.deaths; d++;
+        var d = data[0].deaths; d++;
         bookshelf.knex('tracked').where('character_id', mID).update({ deaths : d }).then(function (res) {
 
         }).catch(function (err) {

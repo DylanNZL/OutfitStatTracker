@@ -71,17 +71,17 @@ function dealWithData(raw) {
 function itsPlayerData(data) {
     // determines whether the data is for a kill by the tracked outfit or a death.
     if ((trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) && (trackedOutfit.members.hasOwnProperty(data.character_id))) {
-        trackedOutfitTeamKilled(data);
-        database.addDeath(trackedOutfit.members[data.character_id]);
-        database.addEventToWeapon(data.attacker_weapon_id, 0, 1, 0);
+       trackedTeamKillDB(data);
     }
     else if (trackedOutfit.members.hasOwnProperty(data.attacker_character_id)) {
         trackedOutfitGotAKill(data);
         if (data.is_headshot) {
             database.addHeadshotKill(trackedOutfit.members[data.attacker_character_id]);
+            // Store in weapon DB
             database.addEventToWeapon(data.attacker_weapon_id, 1, 0, 1);
         } else {
             database.addKill(trackedOutfit.members[data.attacker_character_id]);
+            // Store in weapon DB
             database.addEventToWeapon(data.attacker_weapon_id, 1, 0, 0);
         }
     }
@@ -92,10 +92,13 @@ function itsPlayerData(data) {
     }
 }
 
-function trackedOutfitTeamKilled(data) {
-    trackedOutfitGotAKill(data, items.lookupItem(data.attacker_weapon_id));
-    trackedOutfitGotADeath(data, items.lookupItem(data.attacker_weapon_id));
-
+function trackedTeamKillDB(data) {
+    // Add Death to Tracked DB
+    database.addDeath(data.character_id);
+    // Store in History DB
+    database.addTrackedDeath(data.timestamp, data.attacker_character_id, data.attacker_weapon_id, data.attacker_loadout_id, data.character_id, data.character_loadout_id, data.is_headshot);
+    // Store in weapon DB
+    database.addEventToWeapon(data.attacker_weapon_id, 0, 1, 0);
 }
 
 function trackedOutfitGotAKill(data) {
@@ -164,5 +167,23 @@ function itsFacilityData(data) {
         }
     }
 }
+
+//Tests:
+
+var d = {
+    timestamp: 1468324800000,
+    attacker_character_id : "5428010618038027489",
+    attacker_weapon_id : 7,
+    attacker_loadout_id : 4,
+    character_id : "5428010917265719857",
+    character_loadout_id : 5,
+    is_headshot : 1
+};
+
+// Teamkill
+// trackedTeamKillDB(d);
+// Kill
+
+// Death
 
 exports.createStream = createStream;
