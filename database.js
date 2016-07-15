@@ -423,7 +423,7 @@ function selectAllTrackedData(callback) {
 /* ======================================== Character Queries ======================================== */
 
 function selectAllCharacterData(callback) {
-    bookshelf.knex('characters').select('character_id','name','kills','deaths','outfit_id', 'faction').then(function (data) {
+    bookshelf.knex('characters').select('character_id','name','kills','deaths','outfit_id', 'outfit_name', 'outfit_alias', 'faction').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
