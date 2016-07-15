@@ -7,7 +7,7 @@ var express   = require('express'),
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   getData(res);
 });
 
