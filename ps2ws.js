@@ -101,7 +101,7 @@ function trackedOutfitKillDB(data) {
             // If it doesn't fetch the data and store it in the correct DB(s)
             outfit.fetchOutfitFromCharacterID(data.character_id).then(function (res) {
                 var obj = res[0].value;
-                database.addCharacterDeath(data.character_id, obj.name, obj.rank, obj.faction, obj.outfit_id);
+                database.addCharacterDeath(data.character_id, obj.name, obj.rank, obj.faction, obj.outfit_id, obj.outfitAlias, obj.outfitName);
                 database.doesOutfitExist(obj.outfit_id, function (r) {
                     if ((r) && (r.length > 0)) {
                         database.updateOutfitDeaths(obj.outfit_id);
@@ -130,7 +130,7 @@ function trackedOutfitDeathDB(data) {
             // If it doesn't fetch the data and store it in the correct DB(s)
             outfit.fetchOutfitFromCharacterID(data.attacker_character_id).then(function (res) {
                 var obj = res[0].value;
-                database.addCharacterKill(data.attacker_character_id, obj.name, obj.rank, obj.faction, obj.outfit_id);
+                database.addCharacterKill(data.attacker_character_id, obj.name, obj.rank, obj.faction, obj.outfit_id, obj.outfitAlias, obj.outfitName);
                 database.doesOutfitExist(obj.outfit_id, function (r) {
                     if ((r) && (r.length > 0)) {
                         database.updateOutfitKills(obj.outfit_id);
