@@ -9,6 +9,8 @@ exports.up = function(knex, Promise) {
             table.integer('deaths');
             table.integer('faction');
             table.string('outfit_id');
+            table.string('outfit_name');
+            table.string('outfit_alias');
             table.timestamp('created');
             table.timestamp('updated');
         })
