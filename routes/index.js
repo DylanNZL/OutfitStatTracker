@@ -16,12 +16,15 @@ function getData(res) {
     database.selectAllCharacterData(function (data) {
       database.selectAllTrackedData(function (track) {
         database.selectAllWeaponData(function (weapon) {
-          res.render('index', {
-            title: 'FCLM Tracker',
-            weapons : weapon,
-            tracked : track,
-            characters : data,
-            bases : result
+          database.selectAllOutfitData(function (outfit) {
+            res.render('index', {
+              title: 'FCLM Tracker',
+              outfits : outfit,
+              weapons : weapon,
+              tracked : track,
+              characters : data,
+              bases : result
+            });
           });
         });
       });

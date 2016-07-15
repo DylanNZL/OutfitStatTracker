@@ -22,9 +22,9 @@
                         <th>#</th>
                         <th>Player</th>
                         <th>Battle Rank</th>
-                        <th>Tracked Kills</th>
-                        <th>Tracked Deaths</th>
-                        <th>Tracked KDR</th>
+                        <th>Kills</th>
+                        <th>Deaths</th>
+                        <th>KDR</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,8 +51,8 @@
                             <th style="width:30%">#</th>
                             <th style="width:20%">Player</th>
                             <th style="width:20%">Outfit</th>
-                            <th style="width:10%">Kills of FCLM</th>
-                            <th style="width:10%">Deaths to FCLM</th>
+                            <th style="width:10%">Kills</th>
+                            <th style="width:10%">Deaths</th>
                             <th style="width:10%">K/D</th>
                         </tr>
                     </thead>
@@ -80,18 +80,20 @@
                 <table id="killsOutfitTable">
                     <thead>
                     <tr>
-                        <th style="width:30%">#</th>
+                        <th style="width:20%">#</th>
+                        <th style="width:10%">Alias</th>
                         <th style="width:20%">Outfit</th>
-                        <th style="width:10%">Kills of  FCLM</th>
-                        <th style="width:10%">Deaths to FCLM</th>
+                        <th style="width:10%">Kills</th>
+                        <th style="width:10%">Deaths</th>
                         <th style="width:10%">K/D</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each characters}}
+                    {{#each outfits}}
                         {{#if this.deaths}}
                             <tr>
                                 <td>{{this.outfit_id}}</td>
+                                <td>{{this.alias}}</td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.kills}}</td>
                                 <td>{{this.deaths}}</td>
@@ -113,8 +115,8 @@
                             <th style="width:30%">#</th>
                             <th style="width:20%">Player</th>
                             <th style="width:20%">Outfit</th>
-                            <th style="width:10%">Kills of FCLM</th>
-                            <th style="width:10%">Deaths to FCLM</th>
+                            <th style="width:10%">Kills</th>
+                            <th style="width:10%">Deaths</th>
                             <th style="width:10%">K/D</th>
                         </tr>
                     </thead>
@@ -142,18 +144,20 @@
                 <table id="deathsOutfitTable">
                     <thead>
                     <tr>
-                        <th style="width:30%">#</th>
+                        <th style="width:20%">#</th>
+                        <th style="width:10%">Alias</th>
                         <th style="width:20%">Outfit</th>
-                        <th style="width:10%">Kills of FCLM</th>
-                        <th style="width:10%">Deaths to FCLM</th>
+                        <th style="width:10%">Kills</th>
+                        <th style="width:10%">Deaths</th>
                         <th style="width:10%">K/D</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {{#each characters}}
-                        {{#if this.deaths}}
+                    {{#each outfits}}
+                        {{#if this.kills}}
                             <tr>
                                 <td>{{this.outfit_id}}</td>
+                                <td>{{this.alias}}</td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.kills}}</td>
                                 <td>{{this.deaths}}</td>
