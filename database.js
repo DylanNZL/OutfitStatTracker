@@ -46,7 +46,7 @@ function addTrackedDeath(mTime, mKiller, mWeapon, mLoadout, mLoser, mLoserLoadou
 }
 
 // Insert a character in to the character db with a death
-function addCharacterDeath(mID, mName, mRank, mFaction, mOutfit) {
+function addCharacterDeath(mID, mName, mRank, mFaction, mOutfit, mOutfitAlias, mOutfitName) {
     var obj = {
         character_id : mID,
         name : mName,
@@ -55,6 +55,8 @@ function addCharacterDeath(mID, mName, mRank, mFaction, mOutfit) {
         deaths : 1,
         faction : mFaction,
         outfit_id : mOutfit,
+        outfit_alias : mOutfitAlias,
+        outfit_name : mOutfitName,
         created : Date.now(),
         updated : Date.now()
     };
@@ -66,7 +68,7 @@ function addCharacterDeath(mID, mName, mRank, mFaction, mOutfit) {
 }
 
 // Insert a character in to the character db with a kill
-function addCharacterKill(mID, mName, mRank, mFaction, mOutfit) {
+function addCharacterKill(mID, mName, mRank, mFaction, mOutfit, mOutfitAlias, mOutfitName) {
     var obj = {
         character_id : mID,
         name : mName,
@@ -75,6 +77,8 @@ function addCharacterKill(mID, mName, mRank, mFaction, mOutfit) {
         deaths : 0,
         faction : mFaction,
         outfit_id : mOutfit,
+        outfit_alias : mOutfitAlias,
+        outfit_name : mOutfitName,
         created : Date.now(),
         updated : Date.now()
     };
