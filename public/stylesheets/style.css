@@ -22,17 +22,22 @@ a {
 }
 
 .buffer {
-  width: 15%;
+  width: 9%;
   text-align: center;
   display: inline-block;
 }
 
 #content {
-  width: 68%;
+  width: 80%;
   display: inline-block;
   text-align: left;
   margin-left: auto;
   margin-right: auto;
+}
+
+#Title {
+  text-align: center;
+  width: 100%;
 }
 
 #kills {
@@ -40,6 +45,16 @@ a {
 }
 
 /* ---- Table Styling ---- */
+
+.smallBreak {
+  display: inline-block;
+  width: 1.0%;
+}
+
+.inline {
+  display: inline-block;
+  width: 49.2%;
+}
 
 .tableDiv {
   height: 400px;
@@ -67,6 +82,7 @@ th {
 td {
   height: 30px;
   border: 1px solid #ddd;
+  overflow: hidden;
 }
 
 tr:nth-child(even) {

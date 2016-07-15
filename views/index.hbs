@@ -1,180 +1,251 @@
-<div id="logo">
-    <br>
-</div>
 
-<div>
-    <div id="Title">
-        <h1>[FCLM] Fifth Column Gaming </h1>
-        <p>This page keeps track of the kills and deaths of [FCLM] players</p>
-    </div>
-</div>
 <div id="background">
-<div class="buffer">
-    <br>
-</div>
-<div id="content">
-    <h3>FCLM Players:</h3>
-    <div id="outfit" class="tableDiv">
-        <table id="outfitTable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Player</th>
-                    <th>Battle Rank</th>
-                    <th>Tracked Kills</th>
-                    <th>Tracked Deaths</th>
-                    <th>Tracked KDR</th>
-                </tr>
-            </thead>
-            <tbody>
-            {{#each tracked}}
-                <tr>
-                    <td>{{this.character_id}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.rank}}</td>
-                    <td>{{this.kills}}</td>
-                    <td>{{this.deaths}}</td>
-                    <td>{{kdr this.kills this.deaths}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
+    <div class="buffer">
+        <br>
     </div>
-    <br>
-    <h3 id="killsTitle">Players FCLM kills:</h3>
-    <div id="kills" class="tableDiv">
-        <table id="killsTable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Player</th>
-                    <th>Outfit</th>
-                    <th>Kills of FCLM</th>
-                    <th>Deaths to FCLM</th>
-                    <th>KDR against FCLM</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each characters}}
-                    {{#if this.deaths}}
+    <div id="content">
+        <div id="logo">
+            <br>
+        </div>
+
+        <div>
+            <div id="Title">
+                <h1>[FCLM] Fifth Column Gaming </h1>
+                <p>This page keeps track of the kills and deaths of [FCLM] players</p>
+            </div>
+        </div>
+        <h3>FCLM Players:</h3>
+        <div id="outfit" class="tableDiv">
+            <table id="outfitTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Player</th>
+                        <th>Battle Rank</th>
+                        <th>Tracked Kills</th>
+                        <th>Tracked Deaths</th>
+                        <th>Tracked KDR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {{#each tracked}}
                     <tr>
                         <td>{{this.character_id}}</td>
-                        <td>{{this.outfit_id}}</td>
                         <td>{{this.name}}</td>
+                        <td>{{this.rank}}</td>
                         <td>{{this.kills}}</td>
                         <td>{{this.deaths}}</td>
                         <td>{{kdr this.kills this.deaths}}</td>
                     </tr>
-                    {{/if}}
                 {{/each}}
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <h3 id="deathsTitle">Players FCLM dies to:</h3>
-    <div id="deaths" class="tableDiv">
-        <table id="deathsTable">
-            <thead>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="inline">
+            <h3 id="killsTitle">Players FCLM kills:</h3>
+            <div id="kills" class="tableDiv">
+                <table id="killsTable">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">#</th>
+                            <th style="width:20%">Player</th>
+                            <th style="width:20%">Outfit</th>
+                            <th style="width:10%">Kills of FCLM</th>
+                            <th style="width:10%">Deaths to FCLM</th>
+                            <th style="width:10%">K/D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each characters}}
+                            {{#if this.deaths}}
+                            <tr>
+                                <td>{{this.character_id}}</td>
+                                <td>{{this.outfit_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.kills}}</td>
+                                <td>{{this.deaths}}</td>
+                                <td>{{kdr this.kills this.deaths}}</td>
+                            </tr>
+                            {{/if}}
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="smallBreak"></p>
+        <div class="inline">
+            <h3 id="killsOutfitTitle">Outfits FCLM kills:</h3>
+            <div id="killsOutfit" class="tableDiv">
+                <table id="killsOutfitTable">
+                    <thead>
+                    <tr>
+                        <th style="width:30%">#</th>
+                        <th style="width:20%">Outfit</th>
+                        <th style="width:10%">Kills of  FCLM</th>
+                        <th style="width:10%">Deaths to FCLM</th>
+                        <th style="width:10%">K/D</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each characters}}
+                        {{#if this.deaths}}
+                            <tr>
+                                <td>{{this.outfit_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.kills}}</td>
+                                <td>{{this.deaths}}</td>
+                                <td>{{kdr this.kills this.deaths}}</td>
+                            </tr>
+                        {{/if}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <div class="inline">
+            <h3 id="deathsTitle">Players FCLM dies to:</h3>
+            <div id="deaths" class="tableDiv">
+                <table id="deathsTable">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">#</th>
+                            <th style="width:20%">Player</th>
+                            <th style="width:20%">Outfit</th>
+                            <th style="width:10%">Kills of FCLM</th>
+                            <th style="width:10%">Deaths to FCLM</th>
+                            <th style="width:10%">K/D</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{#each characters}}
+                        {{#if this.kills}}
+                        <tr>
+                            <td>{{this.character_id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.outfit_id}}</td>
+                            <td>{{this.kills}}</td>
+                            <td>{{this.deaths}}</td>
+                            <td>{{kdr this.kills this.deaths}}</td>
+                        </tr>
+                        {{/if}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="smallBreak"></p>
+        <div class="inline">
+            <h3 id="deathsOutfitTitle">Outfits FCLM dies to:</h3>
+            <div id="deathsOutfit" class="tableDiv">
+                <table id="deathsOutfitTable">
+                    <thead>
+                    <tr>
+                        <th style="width:30%">#</th>
+                        <th style="width:20%">Outfit</th>
+                        <th style="width:10%">Kills of FCLM</th>
+                        <th style="width:10%">Deaths to FCLM</th>
+                        <th style="width:10%">K/D</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each characters}}
+                        {{#if this.deaths}}
+                            <tr>
+                                <td>{{this.outfit_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.kills}}</td>
+                                <td>{{this.deaths}}</td>
+                                <td>{{kdr this.kills this.deaths}}</td>
+                            </tr>
+                        {{/if}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="inline">
+            <h3 id="weaponsKillsTitle">Weapons used for FCLM kills:</h3>
+            <div id="weaponsKills" class="tableDiv">
+                <table id="weaponsKillsTable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Weapon</th>
+                        <th>Kills</th>
+                        <th>Headshots</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each weapons}}
+                        {{#if this.kills}}
+                            <tr>
+                                <td>{{this.weapon_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.kills}}</td>
+                                <td>{{this.headshots}}</td>
+                            </tr>
+                        {{/if}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p class="smallBreak"></p>
+        <div class="inline">
+            <h3 id="weaponsDeathsTitle">Weapons used in FCLM deaths:</h3>
+            <div id="weaponsDeaths" class="tableDiv">
+                <table id="weaponsDeathsTable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Weapon</th>
+                        <th>Kills Against FCLM</th>
+                        <th>Headshots</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each weapons}}
+                        {{#if this.deaths}}
+                            <tr>
+                                <td>{{this.weapon_id}}</td>
+                                <td>{{this.name}}</td>
+                                <td>{{this.deaths}}</td>
+                                <td>{{this.headshots}}</td>
+                            </tr>
+                        {{/if}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <h3 id="baseTitle">FCLM Base Captures:</h3>
+        <div id="bases" class="tableDiv">
+            <table id="baseTable">
+                <thead>
                 <tr>
                     <th>#</th>
-                    <th>Player</th>
-                    <th>Outfit</th>
-                    <th>Kills of FCLM</th>
-                    <th>Deaths to FCLM</th>
-                    <th>KDR against FCLM</th>
+                    <th>Base</th>
+                    <th>Type</th>
+                    <th>Captures</th>
                 </tr>
-            </thead>
-            <tbody>
-            {{#each characters}}
-                {{#if this.kills}}
-                <tr>
-                    <td>{{this.character_id}}</td>
-                    <td>{{this.outfit_id}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.kills}}</td>
-                    <td>{{this.deaths}}</td>
-                    <td>{{kdr this.kills this.deaths}}</td>
-                </tr>
-                {{/if}}
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-    <h3 id="baseTitle">FCLM Base Captures:</h3>
-    <div id="bases" class="tableDiv">
-        <table id="baseTable">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Base</th>
-                <th>Type</th>
-                <th>Captures</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#each bases}}
-                <tr>
-                    <td>{{this.base_id}}</td>
-                    <td>{{this.base_name}}</td>
-                    <td>{{this.base_type}}</td>
-                    <td>{{this.captures}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-    <h3 id="weaponsKillsTitle">Weapons used for FCLM kills:</h3>
-    <div id="weaponsKills" class="tableDiv">
-        <table id="weaponsKillsTable">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Weapon</th>
-                <th>Kills</th>
-                <th>Headshots</th>
-            </tr>
-            </thead>
-            <tbody>
-                {{#each weapons}}
-                    {{#if this.kills}}
+                </thead>
+                <tbody>
+                {{#each bases}}
                     <tr>
-                        <td>{{this.weapon_id}}</td>
-                        <td>{{this.name}}</td>
-                        <td>{{this.kills}}</td>
-                        <td>{{this.headshots}}</td>
+                        <td>{{this.base_id}}</td>
+                        <td>{{this.base_name}}</td>
+                        <td>{{this.base_type}}</td>
+                        <td>{{this.captures}}</td>
                     </tr>
-                    {{/if}}
                 {{/each}}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <h3 id="weaponsDeathsTitle">Weapons used in FCLM deaths:</h3>
-    <div id="weaponsDeaths" class="tableDiv">
-        <table id="weaponsDeathsTable">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Weapon</th>
-                <th>Kills Against FCLM</th>
-                <th>Headshots</th>
-            </tr>
-            </thead>
-            <tbody>
-                {{#each weapons}}
-                    {{#if this.deaths}}
-                        <tr>
-                            <td>{{this.weapon_id}}</td>
-                            <td>{{this.name}}</td>
-                            <td>{{this.deaths}}</td>
-                            <td>{{this.headshots}}</td>
-                        </tr>
-                    {{/if}}
-                {{/each}}
-            </tbody>
-        </table>
+    <div class="buffer">
+        <br>
     </div>
-</div>
-<div class="buffer">
-    <br>
-</div>
 </div>
