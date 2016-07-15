@@ -423,7 +423,7 @@ function selectAllTrackedData(callback) {
 /* ======================================== Character Queries ======================================== */
 
 function selectAllCharacterData(callback) {
-    bookshelf.knex('characters').select('character_id','name','kills','deaths','outfit_id').then(function (data) {
+    bookshelf.knex('characters').select('character_id','name','kills','deaths','outfit_id', 'faction').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
@@ -439,7 +439,7 @@ function selectAllCharacterData(callback) {
 /* ========================================= Outfit Queries ========================================= */
 
 function selectAllOutfitData(callback) {
-    bookshelf.knex('outfits').select('outfit_id', 'name', 'alias', 'kills', 'deaths').then(function (data) {
+    bookshelf.knex('outfits').select('outfit_id', 'name', 'alias', 'kills', 'deaths', 'faction').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {

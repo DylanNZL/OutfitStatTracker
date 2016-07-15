@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                 {{#each tracked}}
-                    <tr>
+                    <tr class="faction1">
                         <td>{{this.character_id}}</td>
                         <td>{{this.name}}</td>
                         <td>{{this.rank}}</td>
@@ -41,7 +41,7 @@
                 </tbody>
             </table>
         </div>
-
+        <br>
         <div class="inline">
             <h3 id="killsTitle">Players FCLM kills:</h3>
             <div id="kills" class="tableDiv">
@@ -59,7 +59,7 @@
                     <tbody>
                         {{#each characters}}
                             {{#if this.deaths}}
-                            <tr>
+                            <tr class="faction{{this.faction}}">
                                 <td>{{this.character_id}}</td>
                                 <td>{{this.outfit_id}}</td>
                                 <td>{{this.name}}</td>
@@ -91,7 +91,7 @@
                     <tbody>
                     {{#each outfits}}
                         {{#if this.deaths}}
-                            <tr>
+                            <tr class="faction{{this.faction}}">
                                 <td>{{this.outfit_id}}</td>
                                 <td>{{this.alias}}</td>
                                 <td>{{this.name}}</td>
@@ -123,7 +123,7 @@
                     <tbody>
                     {{#each characters}}
                         {{#if this.kills}}
-                        <tr>
+                        <tr class="faction{{this.faction}}">
                             <td>{{this.character_id}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.outfit_id}}</td>
@@ -155,7 +155,7 @@
                     <tbody>
                     {{#each outfits}}
                         {{#if this.kills}}
-                            <tr>
+                            <tr class="faction{{this.faction}}">
                                 <td>{{this.outfit_id}}</td>
                                 <td>{{this.alias}}</td>
                                 <td>{{this.name}}</td>
@@ -248,6 +248,9 @@
                 </tbody>
             </table>
         </div>
+        <br>
+        <br>
+        <br>
     </div>
     <div class="buffer">
         <br>
