@@ -112,7 +112,7 @@ items.initialise().then(function (result) {
 
   */
 //getOutfitFromID("5428180936948328209");
-//getOutfit("FCLM");
+getOutfit("FCLM");
 
 module.exports = app;
 exports.getOutfitFromID = getOutfitFromID;
