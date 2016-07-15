@@ -35,11 +35,11 @@ function getData(res) {
 Handlebars.registerHelper("kdr", function(kills, deaths) {
   if (deaths == 0) {
     // if no deaths, the kdr will be the total kills
-    return kills;
+    return kills.toFixed(2);
   }
   var kdr = kills / deaths;
   if (kdr == kdr) {
-    return kdr;
+    return kdr.toFixed(2);
   }
   return 0.0;
 });
@@ -47,7 +47,7 @@ Handlebars.registerHelper("kdr", function(kills, deaths) {
 Handlebars.registerHelper("hsr", function (kills, headshots) {
   var hsr = (headshots / kills) * 100;
   if (hsr == hsr) {
-    return hsr.toString() + '%';
+    return hsr.toFixed(2) + '%';
   }
   return '0.0%';
 });
