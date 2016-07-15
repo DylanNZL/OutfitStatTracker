@@ -19,23 +19,27 @@
             <table id="outfitTable">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Player</th>
-                        <th>Battle Rank</th>
-                        <th>Kills</th>
-                        <th>Deaths</th>
-                        <th>KDR</th>
+                        <th style="width:10%">DA</th>
+                        <th style="width:10%">FISU</th>
+                        <th style="width:20%">Player</th>
+                        <th style="width:10%">Battle Rank</th>
+                        <th style="width:10%">Kills</th>
+                        <th style="width:10%">Deaths</th>
+                        <th style="width:10%">KDR</th>
+                        <th style="width:10%">HSR</th>
                     </tr>
                 </thead>
                 <tbody>
                 {{#each tracked}}
                     <tr class="faction1">
-                        <td>{{this.character_id}}</td>
+                        <td><a href="http://stats.dasanfall.com/ps2/player/{{this.name}}">Stats</a></td>
+                        <td><a href="http://ps2.fisu.pw/player/?name={{this.name}}">Stats</a></td>
                         <td>{{this.name}}</td>
                         <td>{{this.rank}}</td>
                         <td>{{this.kills}}</td>
                         <td>{{this.deaths}}</td>
                         <td>{{kdr this.kills this.deaths}}</td>
+                        <td>{{hsr this.kills this.headshots}}</td>
                     </tr>
                 {{/each}}
                 </tbody>
@@ -48,8 +52,9 @@
                 <table id="killsTable">
                     <thead>
                         <tr>
-                            <th style="width:30%">#</th>
-                            <th style="width:20%">Player</th>
+                            <th style="width:10%">DA</th>
+                            <th style="width:10%">FISU</th>
+                            <th style="width:30%">Player</th>
                             <th style="width:20%">Outfit</th>
                             <th style="width:10%">Kills</th>
                             <th style="width:10%">Deaths</th>
@@ -60,7 +65,8 @@
                         {{#each characters}}
                             {{#if this.deaths}}
                             <tr class="faction{{this.faction}}">
-                                <td>{{this.character_id}}</td>
+                                <td><a href="http://stats.dasanfall.com/ps2/player/{{this.name}}">Stats</a></td>
+                                <td><a href="http://ps2.fisu.pw/player/?name={{this.name}}">Stats</a></td>
                                 <td>{{this.outfit_id}}</td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.kills}}</td>
@@ -80,7 +86,8 @@
                 <table id="killsOutfitTable">
                     <thead>
                     <tr>
-                        <th style="width:20%">#</th>
+                        <th style="width:10%">DA</th>
+                        <th style="width:10%">FISU</th>
                         <th style="width:10%">Alias</th>
                         <th style="width:20%">Outfit</th>
                         <th style="width:10%">Kills</th>
@@ -92,7 +99,8 @@
                     {{#each outfits}}
                         {{#if this.deaths}}
                             <tr class="faction{{this.faction}}">
-                                <td>{{this.outfit_id}}</td>
+                                <td><a href="http://stats.dasanfall.com/ps2/outfit/{{this.alias}}">Stats</a></td>
+                                <td><a href="http://ps2.fisu.pw/outfit/?name={{this.alias}}">Stats</a></td>
                                 <td>{{this.alias}}</td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.kills}}</td>
@@ -112,8 +120,9 @@
                 <table id="deathsTable">
                     <thead>
                         <tr>
-                            <th style="width:30%">#</th>
-                            <th style="width:20%">Player</th>
+                            <th style="width:10%">DA</th>
+                            <th style="width:10%">FISU</th>
+                            <th style="width:30%">Player</th>
                             <th style="width:20%">Outfit</th>
                             <th style="width:10%">Kills</th>
                             <th style="width:10%">Deaths</th>
@@ -124,7 +133,8 @@
                     {{#each characters}}
                         {{#if this.kills}}
                         <tr class="faction{{this.faction}}">
-                            <td>{{this.character_id}}</td>
+                            <td><a href="http://stats.dasanfall.com/ps2/player/{{this.name}}">Stats</a></td>
+                            <td><a href="http://ps2.fisu.pw/player/?name={{this.name}}">Stats</a></td>
                             <td>{{this.name}}</td>
                             <td>{{this.outfit_id}}</td>
                             <td>{{this.kills}}</td>
@@ -144,7 +154,8 @@
                 <table id="deathsOutfitTable">
                     <thead>
                     <tr>
-                        <th style="width:20%">#</th>
+                        <th style="width:10%">DA</th>
+                        <th style="width:10%">FISU</th>
                         <th style="width:10%">Alias</th>
                         <th style="width:20%">Outfit</th>
                         <th style="width:10%">Kills</th>
@@ -156,7 +167,8 @@
                     {{#each outfits}}
                         {{#if this.kills}}
                             <tr class="faction{{this.faction}}">
-                                <td>{{this.outfit_id}}</td>
+                                <td><a href="http://stats.dasanfall.com/ps2/outfit/{{this.alias}}">Stats</a></td>
+                                <td><a href="http://ps2.fisu.pw/outfit/?name={{this.alias}}">Stats</a></td>
                                 <td>{{this.alias}}</td>
                                 <td>{{this.name}}</td>
                                 <td>{{this.kills}}</td>

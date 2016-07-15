@@ -32,9 +32,23 @@ function getData(res) {
   });
 }
 
-Handlebars.registerHelper("kdr", function(lvalue, rvalue) {
-  lvalue = parseInt(lvalue);
-  rvalue = parseInt(rvalue);
-  return lvalue / rvalue;
+Handlebars.registerHelper("kdr", function(kills, deaths) {
+  if (deaths == 0) {
+    // if no deaths, the kdr will be the total kills
+    return kills;
+  }
+  var kdr = kills / deaths;
+  if (kdr == kdr) {
+    return kdr;
+  }
+  return 0.0;
+});
+
+Handlebars.registerHelper("hsr", function (kills, headshots) {
+  var hsr = (headshots / kills) * 100;
+  if (hsr == hsr) {
+    return hsr.toString() + '%';
+  }
+  return '0.0%';
 });
 module.exports = router;
