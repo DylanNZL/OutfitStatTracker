@@ -425,7 +425,7 @@ function doesBaseExist(mID, callback) {
 
 // grab all the tracked data for GUI
 function selectAllTrackedData(callback) {
-    bookshelf.knex('tracked').select('character_id','name', 'rank', 'kills', 'deaths', 'headshots').then(function (data) {
+    bookshelf.knex('tracked').orderBy('kills', 'desc').then(function (data) {
         if ((data) && (data.length > 0)) {
             //console.log(data);
             callback(data)
@@ -442,7 +442,7 @@ function selectAllTrackedData(callback) {
 /* ======================================== Character Queries ======================================== */
 
 function selectAllCharacterData(callback) {
-    bookshelf.knex('characters').select('character_id','name','kills','deaths','outfit_id', 'outfit_name', 'outfit_alias', 'faction').then(function (data) {
+    bookshelf.knex('characters').orderBy('kills', 'desc').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
@@ -458,7 +458,7 @@ function selectAllCharacterData(callback) {
 /* ========================================= Outfit Queries ========================================= */
 
 function selectAllOutfitData(callback) {
-    bookshelf.knex('outfits').select('outfit_id', 'name', 'alias', 'kills', 'deaths', 'faction').then(function (data) {
+    bookshelf.knex('outfits').orderBy('kills', 'desc').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
@@ -474,7 +474,7 @@ function selectAllOutfitData(callback) {
 /* ========================================== Items Queries ========================================== */
 
 function selectAllWeaponData(callback) {
-    bookshelf.knex('weapons').select('weapon_id', 'name', 'kills', 'deaths', 'headshots').then(function (data) {
+    bookshelf.knex('weapons').orderBy('kills', 'desc').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
@@ -491,7 +491,7 @@ function selectAllWeaponData(callback) {
 
 // grab all the base data for GUI
 function selectAllBaseData(callback) {
-    bookshelf.knex('bases').select('base_id', 'base_name', 'base_type', 'captures').then(function (data) {
+    bookshelf.knex('bases').orderBy('captures', 'desc').then(function (data) {
         if ((data) && (data.length > 0)) {
             callback(data);
         } else {
